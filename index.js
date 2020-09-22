@@ -29,6 +29,7 @@ app.get("/welcome", (req, res) => {
 });
 
 app.post("/welcome", (req, res) => {
+    ////welcome OR register???
     const { first, last, email, password } = req.body;
     console.log(req.body);
     if (first != "" && last != "" && email != "" && password != "") {
@@ -39,7 +40,7 @@ app.post("/welcome", (req, res) => {
                     .then((resultUser) => {
                         req.session.registered = true;
                         req.session.userId = resultUser.rows[0].id;
-                        res.redirect("/profile");
+                        // res.redirect("/profile");
                     })
                     .catch((err) => {
                         console.log("err in post register: ", err);

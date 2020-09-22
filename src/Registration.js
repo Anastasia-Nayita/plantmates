@@ -9,10 +9,10 @@ export default class Registration extends React.Component {
     }
 
     handleChange(e) {
+        const { name, value } = e.target;
         this.setState(
             {
-                first: e.target.value,
-                last: e.target.value,
+                [name]: value,
             },
             () => console.log("this.state: ", this.state)
         );
@@ -54,6 +54,7 @@ export default class Registration extends React.Component {
                     placeholder="password"
                 />
                 <button>REGISTER</button>
+                {/* shall it be a @click='handleClick' event  on the button */}
                 <h3>
                     Already a member? <a href="/login">Log in</a>
                 </h3>
