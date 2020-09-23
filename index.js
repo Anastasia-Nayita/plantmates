@@ -119,6 +119,9 @@ app.post("/login", (req, res) => {
     }
 });
 
+const { sendEmail } = require("ses.js");
+sendEmail("funckychiken@mail", "something to tell yo", "something more o tell");
+
 app.get("*", function (req, res) {
     res.sendFile(__dirname + "/index.html");
 });
@@ -126,3 +129,28 @@ app.get("*", function (req, res) {
 app.listen(8080, function () {
     console.log("I'm listening.");
 });
+
+///////
+// reset password.js
+
+// export default class ResetPassword extends React.Component{
+// 	constructor(props){
+//         super(props)
+//         this.state = {currentDisplay:1}
+// }
+// render(){
+//     //let elem,
+//     // if() {
+//     //     elem =( div)
+//     // } else if(){}
+
+//     return (
+//         div
+//         h1 - show always
+//         {this.state.currentDisplay==1 && <div></div>}
+//          {this.state.currentDisplay==2 && <div></div>}
+//          // {elem}
+
+//     )
+// }
+// }
