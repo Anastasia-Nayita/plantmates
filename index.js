@@ -50,8 +50,14 @@ app.get("/welcome", (req, res) => {
     }
 });
 
+app.get("/nextpage", (req, res) => {
+    // res.send("WE ARE ON THE NEXT PAGE");
+});
+app.post("/nextpage", (req, res) => {
+    //res.send("WE ARE ON THE NEXT PAGE");
+});
+
 app.post("/register", (req, res) => {
-    ////welcome OR register???
     const { first, last, email, password } = req.body;
     console.log(req.body);
     if (first != "" && last != "" && email != "" && password != "") {
@@ -62,15 +68,19 @@ app.post("/register", (req, res) => {
                     .then((resultUser) => {
                         req.session.registered = true;
                         req.session.userId = resultUser.rows[0].id;
+                        res.json({ error: false });
                         // res.redirect("/profile");
                     })
+
                     .catch((err) => {
                         console.log("err in post register: ", err);
                         res.send("something went wrong, try one more time");
+                        res.json({ error: true });
                     });
             })
             .catch((err) => {
                 console.log("err : ", err);
+                res.json({ error: true });
             });
     }
 });
@@ -81,7 +91,7 @@ app.get("/login", (req, res) => {
     } else if (!req.session.registered) {
         res.render("login");
     } else {
-        res.redirect("/profile");
+        res.redirect("/welcome");
     }
 });
 //////////////////////////////////LOGIN BLOCK
@@ -98,9 +108,9 @@ app.post("/login", (req, res) => {
                                 req.session.userId = userId;
                                 res.redirect("/profile");
                             } else {
-                                res.render("login", {
-                                    error: "wrong, try again",
-                                });
+                                // res.render("login", {
+                                //     error: "wrong, try again",
+                                // });
                             }
                         }
                     );
@@ -108,9 +118,9 @@ app.post("/login", (req, res) => {
             })
             .catch((err) => {
                 console.log("err", err);
-                res.render("login", {
-                    error: "something went wrong, try again",
-                });
+                // res.render("login", {
+                //     error: "something went wrong, try again",
+                // });
             });
     } else {
         res.render("login", {
@@ -119,8 +129,8 @@ app.post("/login", (req, res) => {
     }
 });
 
-const { sendEmail } = require("ses.js");
-sendEmail("funckychiken@mail", "something to tell yo", "something more o tell");
+// const { sendEmail } = require("ses.js");
+// sendEmail("funckychiken@mail", "something to tell yo", "something more o tell");
 
 app.get("*", function (req, res) {
     res.sendFile(__dirname + "/index.html");

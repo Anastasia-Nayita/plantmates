@@ -57,7 +57,7 @@ export default class Login extends React.Component {
                 <button onClick={(e) => this.handleClick(e)}>LOG IN</button>
 
                 <h3>
-                    <Link to="/register">Click here to register!</Link>
+                    <Link to="/">Click here to register!</Link>
                 </h3>
             </div>
         );

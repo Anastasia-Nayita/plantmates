@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class logo extends React.Component {
+export default class Logo extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -11,7 +11,7 @@ export default class logo extends React.Component {
     render() {
         return (
             <div>
-                <img href="/public/fpclogo.gif" />
+                <img src="./fpclogo.gif" alt=""></img>
             </div>
         );
     }

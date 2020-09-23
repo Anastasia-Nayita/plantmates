@@ -61,18 +61,21 @@ export default class Registration extends React.Component {
                     name="first"
                     placeholder="first name"
                 />
+                <br />
                 <label htmlFor="last">enter your last name:</label>
                 <input
                     onChange={(e) => this.handleChange(e)}
                     name="last"
                     placeholder="last name"
                 />
+                <br />
                 <label htmlFor="email">enter your email:</label>
                 <input
                     onChange={(e) => this.handleChange(e)}
                     name="email"
                     placeholder="email"
                 />
+                <br />
                 <label htmlFor="password">enter your password:</label>
                 <input
                     onChange={(e) => this.handleChange(e)}
@@ -80,6 +83,7 @@ export default class Registration extends React.Component {
                     type="password"
                     placeholder="password"
                 />
+                <br />
                 <button onClick={(e) => this.handleClick(e)}>REGISTER</button>
 
                 <h3>
