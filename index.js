@@ -4,10 +4,32 @@ const compression = require("compression");
 const cookieSession = require("cookie-session");
 const db = require("./db");
 const bc = require("./bc.js");
-
+const csurf = require("csurf");
 app.use(compression());
 app.use(express.static("./public"));
 app.use(express.json());
+
+app.use(
+    cookieSession({
+        secret: `I'm always angry.`,
+        maxAge: 1000 * 60 * 60 * 24 * 14,
+    })
+);
+
+app.use(
+    express.urlencoded({
+        //// do we need it???
+        extended: false,
+    })
+);
+
+app.use(csurf());
+
+app.use(function (req, res, next) {
+    res.cookie("mytoken", req.csrfToken());
+    res.setHeader("x-frame-options", "deny");
+    next();
+});
 
 if (process.env.NODE_ENV != "production") {
     app.use(
@@ -28,7 +50,7 @@ app.get("/welcome", (req, res) => {
     }
 });
 
-app.post("/welcome", (req, res) => {
+app.post("/register", (req, res) => {
     ////welcome OR register???
     const { first, last, email, password } = req.body;
     console.log(req.body);
@@ -52,6 +74,51 @@ app.post("/welcome", (req, res) => {
             });
     }
 });
+
+app.get("/login", (req, res) => {
+    if (req.session.loggedIn) {
+        res.redirect("/profile");
+    } else if (!req.session.registered) {
+        res.render("login");
+    } else {
+        res.redirect("/profile");
+    }
+});
+//////////////////////////////////LOGIN BLOCK
+app.post("/login", (req, res) => {
+    const { emailLog, passwordLog } = req.body;
+    if (emailLog != "" && passwordLog != "") {
+        db.getUserData(emailLog)
+            .then((valid) => {
+                if (valid) {
+                    bc.compare(passwordLog, valid.rows[0].password).then(
+                        (result) => {
+                            let userId = valid.rows[0].id;
+                            if (result) {
+                                req.session.userId = userId;
+                                res.redirect("/profile");
+                            } else {
+                                res.render("login", {
+                                    error: "wrong, try again",
+                                });
+                            }
+                        }
+                    );
+                }
+            })
+            .catch((err) => {
+                console.log("err", err);
+                res.render("login", {
+                    error: "something went wrong, try again",
+                });
+            });
+    } else {
+        res.render("login", {
+            error: "try again",
+        });
+    }
+});
+
 app.get("*", function (req, res) {
     res.sendFile(__dirname + "/index.html");
 });
