@@ -4,6 +4,7 @@ import Registration from "./Registration";
 import Login from "./Login";
 import Logo from "./Logo";
 import NextPage from "./NextPage";
+import ResetPassword from "./ResetPassword";
 
 export default function Welcome() {
     return (
@@ -16,6 +17,7 @@ export default function Welcome() {
                     {/* <Route path="/register" component={Registration} /> */}
                     <Route path="/login" component={Login} />
                     <Route path="/nextpage" component={NextPage} />
+                    <Route path="/resetpassword" component={ResetPassword} />
                 </div>
             </HashRouter>
         </div>

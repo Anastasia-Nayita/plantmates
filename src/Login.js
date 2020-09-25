@@ -25,7 +25,7 @@ export default class Login extends React.Component {
         e.preventDefault();
         var that = this;
         axios
-            .post("/register", that.state)
+            .post("/login", that.state)
             .then(function (response) {
                 console.log("response: ", response);
             })
@@ -58,6 +58,10 @@ export default class Login extends React.Component {
 
                 <h3>
                     <Link to="/">Click here to register!</Link>
+                    <br />
+                    <p>
+                        <Link to="/resetpassword">Forgot password?</Link>
+                    </p>
                 </h3>
             </div>
         );

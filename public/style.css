@@ -4,10 +4,11 @@
     /* background-color: aquamarine; */
 }
 body {
-    background-image: url("/javardh-2q6C5zDJOsg-unsplash.jpg");
+    background: blanchedalmond;
+    /* background-image: url("/javardh-2q6C5zDJOsg-unsplash.jpg"); */
     background-size: cover;
     background-position: left;
-    color: whitesmoke;
+    /* color: whitesmoke; */
     margin: 3%;
     float: right;
 }
