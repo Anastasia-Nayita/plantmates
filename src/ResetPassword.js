@@ -30,40 +30,75 @@ export default class ResetPassword extends React.Component {
                 [name]: value,
                 error: false,
             });
+            axios
+                .post("/password/reset/start", this.state)
+                .then((response) => {
+                    console.log("response in start: ", response);
+                    if (response) {
+                        this.setState({ currentDisplay: 2 });
+                    } else {
+                        this.setState(
+                            {
+                                error: true,
+                            },
+                            () => console.log("this.state: ", this.state)
+                        );
+                    }
+                })
+                .catch(function (error) {
+                    console.log("error: ", error);
+                });
         } else {
             this.setState({
                 error: true,
             });
         }
         //var that = this;
-
-        axios
-            .post("/password/reset/start", this.state)
-            .then(function (response) {
-                console.log("response: ", response);
-                if (response) {
-                    //location.replace("/nextpage");
-                } else {
-                    this.setState(
-                        {
-                            error: true,
-                        },
-                        () => console.log("this.state: ", this.state)
-                    );
-                }
-            })
-            .catch(function (error) {
-                console.log("error: ", error);
-            });
     }
 
-    handleConfirmPsw(e) {
+    handleNewPsw(e) {
         e.preventDefault();
+        const { name, value } = e.target;
+        const { secretCode, email, password, confpassword } = this.state;
+        if (
+            email != "" &&
+            password != "" &&
+            secretCode != "" &&
+            confpassword != 0 &&
+            password === confpassword
+        ) {
+            this.setState({
+                [name]: value,
+                error: false,
+            });
+            axios
+                .post("/password/reset/verify", this.state)
+                .then((response) => {
+                    console.log("response in verify: ", response);
+                    if (response) {
+                        this.setState({ currentDisplay: 3 });
+                    } else {
+                        this.setState(
+                            {
+                                error: true,
+                            },
+                            () => console.log("this.state: ", this.state)
+                        );
+                    }
+                })
+                .catch(function (error) {
+                    console.log("error: ", error);
+                });
+        } else {
+            this.setState({
+                error: true,
+            });
+        }
     }
 
     render() {
         return (
-            <>
+            <div>
                 <h2>Reset Password</h2>
                 {this.state.currentDisplay == 1 && (
                     <div className="psw-reset">
@@ -89,7 +124,7 @@ export default class ResetPassword extends React.Component {
                         <h3>Please enter the code you received</h3>
                         <input
                             onChange={(e) => this.handleChange(e)}
-                            name="code"
+                            name="secretCode"
                             placeholder="code"
                         />
 
@@ -102,7 +137,7 @@ export default class ResetPassword extends React.Component {
                         />
                         <input
                             onChange={(e) => this.handleChange(e)}
-                            name="conf-password"
+                            name="confpassword"
                             type="password"
                             placeholder="confirm password"
                         />
@@ -122,7 +157,7 @@ export default class ResetPassword extends React.Component {
                         </h3>
                     </div>
                 )}
-            </>
+            </div>
         );
     }
 }

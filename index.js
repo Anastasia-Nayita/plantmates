@@ -135,9 +135,11 @@ app.post("/password/reset/start", (req, res) => {
                             `Here is your reset code: ${secretCode} . It will expire! Take it and run!`,
                             secretCode
                         );
-                        // res.json({
-                        //     timestamp: result.rows[0].created_at,
-                        // });
+                        res.json(
+                            { err: false }
+                            //created_at: result.rows[0].created_at,
+                        );
+                        //console.log("created_at: ", created_at);
                     })
                     .catch((err) => {
                         console.log("err in db.addCode: ", err);
@@ -150,10 +152,49 @@ app.post("/password/reset/start", (req, res) => {
     }
 });
 
-app.post("password/reset/verify", (req, res) => {});
+app.post("/password/reset/verify", (req, res) => {
+    const { secretCode, email, password, confpassword } = req.body;
+    // console.log("secretCode: ", req.body.secretCode);
 
-// const { sendEmail } = require("ses.js");
-// sendEmail("funckychiken@mail", "something to tell yo", "something more o tell");
+    if (
+        email != "" &&
+        password != "" &&
+        secretCode != "" &&
+        confpassword != 0 &&
+        password === confpassword
+    ) {
+        db.getCode(email)
+            .then((result) => {
+                // console.log("secretCode: ", req.body.secretCode);
+                // console.log(
+                //     "result.rows[0].secretcode: ",
+                //     result.rows[0].secretcode
+                // );
+
+                if (req.body.secretCode === result.rows[0].secretcode) {
+                    bc.hash(password).then((hashedPassword) => {
+                        db.resetPsw(email, hashedPassword)
+                            .then(() => {
+                                res.json({
+                                    err: false,
+                                });
+                                console.log("we did it till db.resetPsq!!!");
+                            })
+                            .catch((err) => {
+                                console.log("err in db.resetPsw: ", err);
+                                res.json({ err: true });
+                            });
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log("err in db.getCode: ", err);
+            });
+    } else {
+        console.log("empty fields! not cool!");
+        res.json({ err: true });
+    }
+});
 
 app.get("*", function (req, res) {
     res.sendFile(__dirname + "/index.html");
@@ -162,28 +203,3 @@ app.get("*", function (req, res) {
 app.listen(8080, function () {
     console.log("I'm listening.");
 });
-
-///////
-// reset password.js
-
-// export default class ResetPassword extends React.Component{
-// 	constructor(props){
-//         super(props)
-//         this.state = {currentDisplay:1}
-// }
-// render(){
-//     //let elem,
-//     // if() {
-//     //     elem =( div)
-//     // } else if(){}
-
-//     return (
-//         div
-//         h1 - show always
-//         {this.state.currentDisplay==1 && <div></div>}
-//          {this.state.currentDisplay==2 && <div></div>}
-//          // {elem}
-
-//     )
-// }
-// }

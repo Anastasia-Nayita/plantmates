@@ -25,8 +25,7 @@ module.exports.getUserData = (email) => {
 module.exports.addCode = (email, secretcode) => {
     return db.query(
         `INSERT INTO reset_psw (email, secretcode) 
-        VALUES ($1, $2)
-        RETURNING`,
+        VALUES ($1, $2)`,
         [email, secretcode]
     );
 };
@@ -34,7 +33,10 @@ module.exports.addCode = (email, secretcode) => {
 module.exports.getCode = (email) => {
     return db.query(
         `SELECT * FROM reset_psw 
-        WHERE email = ($1)`,
+        WHERE (email = ($1) AND CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes')
+        ORDER BY id DESC
+        LIMIT 1
+        `,
         [email]
     );
 };

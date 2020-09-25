@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 //import { HashRouter, Link } from "react-router-dom";
 import axios from "./axios.js";
-import NextPage from "./NextPage";
 
 export default class Registration extends React.Component {
     constructor() {
@@ -30,7 +29,10 @@ export default class Registration extends React.Component {
             .then(function (response) {
                 console.log("response: ", response);
                 if (response) {
-                    location.replace("/nextpage");
+                    this.setState({
+                        error: false,
+                    });
+                    //location.replace("/nextpage");
                 } else {
                     this.setState(
                         {

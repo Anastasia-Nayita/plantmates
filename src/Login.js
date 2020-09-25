@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "./axios.js";
-// import NextPage from "./NextPage";
 
 export default class Login extends React.Component {
     constructor() {
