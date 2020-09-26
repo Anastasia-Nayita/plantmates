@@ -135,11 +135,7 @@ app.post("/password/reset/start", (req, res) => {
                             `Here is your reset code: ${secretCode} . It will expire! Take it and run!`,
                             secretCode
                         );
-                        res.json(
-                            { err: false }
-                            //created_at: result.rows[0].created_at,
-                        );
-                        //console.log("created_at: ", created_at);
+                        res.json({ err: false });
                     })
                     .catch((err) => {
                         console.log("err in db.addCode: ", err);
@@ -154,7 +150,6 @@ app.post("/password/reset/start", (req, res) => {
 
 app.post("/password/reset/verify", (req, res) => {
     const { secretCode, email, password, confpassword } = req.body;
-    // console.log("secretCode: ", req.body.secretCode);
 
     if (
         email != "" &&
@@ -165,12 +160,6 @@ app.post("/password/reset/verify", (req, res) => {
     ) {
         db.getCode(email)
             .then((result) => {
-                // console.log("secretCode: ", req.body.secretCode);
-                // console.log(
-                //     "result.rows[0].secretcode: ",
-                //     result.rows[0].secretcode
-                // );
-
                 if (req.body.secretCode === result.rows[0].secretcode) {
                     bc.hash(password).then((hashedPassword) => {
                         db.resetPsw(email, hashedPassword)
@@ -195,6 +184,8 @@ app.post("/password/reset/verify", (req, res) => {
         res.json({ err: true });
     }
 });
+
+app.get("/user");
 
 app.get("*", function (req, res) {
     res.sendFile(__dirname + "/index.html");

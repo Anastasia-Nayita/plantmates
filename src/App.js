@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "./axios";
-import ProfilePic from "./Profilepic.js";
+import Profilepic from "./Profilepic.js";
 import Uploader from "./Uploader.js";
 
 export default class App extends React.Component {
@@ -8,6 +8,7 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             error: false,
+            uploaderIsVisible: false,
         };
     }
 
@@ -15,7 +16,7 @@ export default class App extends React.Component {
         axios.get("/user").then(({ data }) =>
             this.setState({
                 ...data,
-                image: data.image || "default.png",
+                image: data.image || "/default.png",
             })
         );
     }
@@ -26,10 +27,11 @@ export default class App extends React.Component {
                 <div className="Logo">
                     <img src="./fpclogo.gif" alt=""></img>
                 </div>
-                <ProfilePic
+                <Profilepic
                     first={this.state.first}
                     last={this.state.last}
                     imageUrl={this.state.image}
+                    bio={this.state.bio}
                     clickHandler={() =>
                         this.setState({ uploaderIsVisible: true })
                     }

@@ -47,12 +47,9 @@ export default class Registration extends React.Component {
             });
     }
 
-    // this code will redirect the user to the / route...
-    // location.replace('/') ///// WHAT HOW WHEN
-
     render() {
         return (
-            <div>
+            <div className="block">
                 <h3>Register here:</h3>
                 {this.state.error && (
                     <p className="error">something went wrong!</p>
@@ -94,6 +91,4 @@ export default class Registration extends React.Component {
             </div>
         );
     }
-
-    ///   redirect('./NextPage') ////// what a f
 }
