@@ -50,3 +50,21 @@ module.exports.resetPsw = (email, password) => {
         [email, password]
     );
 };
+
+module.exports.getUserDataById = (id) => {
+    return db.query(
+        `SELECT * FROM users 
+        WHERE id = ($1)`,
+        [id]
+    );
+};
+
+module.exports.addProfilePic = (image_url, id) => {
+    return db.query(
+        `UPDATE users
+        SET image_url = ($1)
+        WHERE id = ($2)
+        RETURNING *`,
+        [image_url, id]
+    );
+};

@@ -4,7 +4,7 @@
     /* background-color: aquamarine; */
 }
 body {
-    background: blanchedalmond;
+    /* background: blanchedalmond; */
     /* background-image: url("/javardh-2q6C5zDJOsg-unsplash.jpg"); */
     background-size: cover;
     background-position: left;
@@ -20,4 +20,62 @@ input {
     border: thin tomato solid;
     width: max-content;
     padding: 4%;
+}
+.Logo {
+    left: 45%;
+    position: absolute;
+    top: 9%;
+    width: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.LogoImg {
+    max-width: 15vh;
+}
+.menu-icon {
+    text-align: right;
+}
+.burger-menu,
+.close-menu {
+    font-size: 2em;
+    position: absolute;
+    left: 1%;
+    top: 1%;
+}
+.burger-menu::before {
+    content: "≡";
+}
+.close-menu::before {
+    content: "×";
+}
+.profile {
+    position: absolute;
+    right: 1%;
+    top: 10%;
+}
+.nav-menu {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    grid-gap: 12vh;
+    list-style: none;
+}
+.navbar-container {
+    display: flex;
+    height: 80px;
+}
+.navbar {
+    display: flex;
+    height: 80px;
+    justify-content: center;
+}
+.nav-links {
+    text-decoration: none;
+    color: tomato;
+}
+.nav-links:hover {
+    border-bottom: 4px solid darkblue;
+    /* text-shadow: hotpink 1px 0 10px; */
+    transition: all 0.2s ease-out;
 }

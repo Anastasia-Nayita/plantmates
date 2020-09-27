@@ -7,10 +7,33 @@ const bc = require("./bc.js");
 const csurf = require("csurf");
 const cryptoRandomString = require("crypto-random-string");
 const { sendEmail } = require("./ses");
+const multer = require("multer");
+const path = require("path");
+const s3 = require("./s3");
+const { s3Url } = require("./config");
+const uidSafe = require("uid-safe");
 
 app.use(compression());
 app.use(express.static("./public"));
 app.use(express.json());
+
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function (uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    },
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
 
 app.use(
     cookieSession({
@@ -185,7 +208,41 @@ app.post("/password/reset/verify", (req, res) => {
     }
 });
 
-app.get("/user");
+app.get("/user", async function (req, res) {
+    console.log("req.session in app.get.user : ", req.session);
+    try {
+        const { rows } = await db.getUserDataById(req.session.userId);
+        console.log("rows[0]", rows[0]);
+        res.json(rows[0]);
+    } catch (err) {
+        console.log("err in getUserDataById: ", err);
+    }
+});
+
+app.post("/uploader", uploader.single("file"), s3.upload, async function (
+    req,
+    res
+) {
+    var imageUrl;
+
+    if (req.body.imageLink) {
+        imageUrl = req.body.imageLink;
+    } else {
+        const filename = req.file.filename;
+        imageUrl = `${s3Url}${filename}`;
+    }
+    try {
+        const { rows } = await db.addProfilePic(imageUrl, req.session.userId);
+        res.json(rows[0]);
+    } catch (err) {
+        console.log("err in addProfilePic: ", err);
+    }
+});
+
+app.post("/logout", (req, res) => {
+    req.session = null;
+    res.json({ err: false });
+});
 
 app.get("*", function (req, res) {
     res.sendFile(__dirname + "/index.html");

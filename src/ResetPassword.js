@@ -98,7 +98,7 @@ export default class ResetPassword extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="block">
                 <h2>Reset Password</h2>
                 {this.state.currentDisplay == 1 && (
                     <div className="psw-reset">
