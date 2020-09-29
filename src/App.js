@@ -23,10 +23,12 @@ export default class App extends React.Component {
 
     componentDidMount() {
         axios.get("/user").then(({ data }) => {
+            var defaultBio = "no added bio yet...";
             this.setState({
                 ...data,
                 ///////Maybe issue is here in naming
-                image_url: data.image_url || "./default.png", ///"/https://picsum.photos/150", ////change to default later
+                image_url: data.image_url || "./default.png", ///"/https://picsum.photos/150"
+                bio: data.bio || defaultBio,
             });
         });
         console.log("this.state : ", this.state);

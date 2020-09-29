@@ -209,7 +209,7 @@ app.post("/password/reset/verify", (req, res) => {
 });
 
 app.get("/user", async function (req, res) {
-    console.log("req.session in app.get.user : ", req.session);
+    //console.log("req.session in app.get.user : ", req.session);
     try {
         const { rows } = await db.getUserDataById(req.session.userId);
         console.log("rows[0]", rows[0]);

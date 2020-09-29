@@ -54,7 +54,7 @@ export default class Uploader extends React.Component {
                         className="imageLink"
                         type="text"
                         name="link"
-                        placeholder="https://example.com"
+                        placeholder="https://example.com/picture.png"
                         pattern="https://.*"
                     />
                     <button onClick={(e) => this.handleClick(e)}>
