@@ -79,3 +79,31 @@ input {
     /* text-shadow: hotpink 1px 0 10px; */
     transition: all 0.2s ease-out;
 }
+.profilepic {
+    /* border: #bfbdbd 3px solid; */
+    /* border-radius: 50%; */
+    right: 2px;
+    top: 9%;
+    position: absolute;
+    max-width: 12vh;
+    overflow: auto;
+    max-height: 12vh;
+}
+
+.profilepic img {
+    width: 100%;
+}
+.Uploader {
+    padding: 3%;
+    display: flex;
+    justify-content: center;
+    margin: 20% 0;
+}
+.bigger .profilepic {
+    left: 5%;
+    top: 30%;
+    position: absolute;
+    max-width: 30vh;
+    overflow: auto;
+    max-height: 30vh;
+}

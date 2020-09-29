@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ({ first, last, imageUrl, clickHandler }) {
     return (
-        <div>
+        <div className="profilepic">
             <img
                 src={imageUrl}
                 alt={{ first } & { last }}

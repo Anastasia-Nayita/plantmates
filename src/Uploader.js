@@ -40,7 +40,7 @@ export default class Uploader extends React.Component {
     render() {
         return (
             <div className="Uploader">
-                <span className="block">
+                <span>
                     <h2>Do you want to change your image?</h2>
                     <label>Upload file from you device</label>
                     <input

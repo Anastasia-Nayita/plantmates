@@ -25,8 +25,16 @@ export default class App extends React.Component {
         axios.get("/user").then(({ data }) => {
             this.setState({
                 ...data,
-                image: data.image || "https://picsum.photos/150", ////change to default later
+                ///////Maybe issue is here in naming
+                image_url: data.image_url || "./default.png", ///"/https://picsum.photos/150", ////change to default later
             });
+        });
+        console.log("this.state : ", this.state);
+    }
+
+    clickHandler() {
+        this.setState({
+            uploaderIsVisible: true,
         });
     }
 
@@ -36,7 +44,6 @@ export default class App extends React.Component {
                 <Router>
                     <Navbar />
                     <Switch>
-                        <Route exact path="/" component={Registration} />
                         <Route path="/login" component={Login} />
 
                         <Route path="/register" component={Registration} />
@@ -46,11 +53,48 @@ export default class App extends React.Component {
                             component={ResetPassword}
                         />
                         <Route path="/logout" component={Logout} />
+                        {/* <Route
+                            path="/user/:id"
+                            render={(props) => (
+                                <OtherProfile
+                                    key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                />
+                            )}
+                        /> */}
                     </Switch>
+                    <Route
+                        exact
+                        path="/"
+                        render={() => (
+                            <Profile
+                                first={this.state.first}
+                                last={this.state.last}
+                                profilepic={
+                                    <Profilepic
+                                        id={this.state.id}
+                                        first={this.state.first}
+                                        last={this.state.last}
+                                        imageUrl={this.state.image_url}
+                                        clickHandler={() =>
+                                            this.setState({
+                                                uploaderIsVisible: true,
+                                            })
+                                        }
+                                    />
+                                }
+                                bioEditor={
+                                    <BioEditor
+                                        bio={this.state.bio}
+                                        setBio={this.setBio}
+                                    />
+                                }
+                            />
+                        )}
+                    />
                 </Router>
-
                 <div className="Logo">
-                    {/* <img src="./logo.gif" alt="Logo" /> */}
                     <img
                         className="LogoImg"
                         src="https://media.giphy.com/media/l0OWjOSGaUjQvzBGE/giphy.gif"
@@ -60,30 +104,6 @@ export default class App extends React.Component {
                     <h2> hey stranger </h2>
                 </div>
 
-                <div className="profile">
-                    <Profile
-                        first={this.state.first}
-                        last={this.state.last}
-                        profilepic={
-                            <Profilepic
-                                id={this.state.id}
-                                first={this.state.first}
-                                last={this.state.last}
-                                imageUrl={this.state.image}
-                                clickHandler={() =>
-                                    this.setState({ uploaderIsVisible: true })
-                                }
-                                ///  <div className={click ?  uploaderIsVisible: true  :  uploaderIsVisible: false} />
-                            />
-                        }
-                        bioEditor={
-                            <BioEditor
-                                bio={this.state.bio}
-                                setBio={this.setBio}
-                            />
-                        }
-                    />
-                </div>
                 {this.state.uploaderIsVisible && (
                     <Uploader
                         addImage={(newImage) => {

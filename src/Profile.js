@@ -1,22 +1,16 @@
 import React from "react";
-import Profilepic from "./Profilepic";
-import BioEditor from "./BioEditor";
 
-export default function ({ first, last, imageUrl, clickHandler, bio, setBio }) {
+export default function ({ first, last, profilepic, bioEditor }) {
     return (
         <div>
-            <Profilepic
-                first={first}
-                last={last}
-                imageUrl={imageUrl}
-                clickHandler={clickHandler}
-            />
-            <img src={imageUrl} alt={`${first}  ${last}`} />
-            <p>
-                {first}
-                {last}
-            </p>
-            <BioEditor bio={bio} editBio={setBio} />
+            {profilepic}
+
+            <div className="bigger">{profilepic}</div>
+            <h3>
+                {first} {last}
+            </h3>
+
+            {bioEditor}
         </div>
     );
 }

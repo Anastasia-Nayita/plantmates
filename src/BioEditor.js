@@ -4,13 +4,14 @@ export default class BioEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // bio:
-            // editBio:
+            bio: this.state.bio,
+            editBio: this.state.editBio,
+            // setBio=this.setBio,
             error: false,
         };
     }
 
     render() {
-        return <div></div>;
+        return <div className="bio-block">{bio}</div>;
     }
 }
