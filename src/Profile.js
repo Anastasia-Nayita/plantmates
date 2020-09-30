@@ -4,13 +4,15 @@ export default function ({ first, last, profilepic, bioEditor }) {
     return (
         <div>
             {profilepic}
+            <div className="profile-info">
+                <div className="bigger">{profilepic}</div>
 
-            <div className="bigger">{profilepic}</div>
-            <h3>
-                {first} {last}
-            </h3>
+                <h3>
+                    {first} {last}
+                </h3>
 
-            {bioEditor}
+                {bioEditor}
+            </div>
         </div>
     );
 }

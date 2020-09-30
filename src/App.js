@@ -4,7 +4,7 @@ import Profile from "./Profile.js";
 import Uploader from "./Uploader.js";
 import Profilepic from "./Profilepic.js";
 import BioEditor from "./BioEditor.js";
-
+import OtherProfile from "./OtherProfile";
 import Registration from "./Registration";
 import Login from "./Login";
 import ResetPassword from "./ResetPassword";
@@ -95,6 +95,7 @@ export default class App extends React.Component {
                             />
                         )}
                     />
+                    <Route path="/user/:id" component={OtherProfile} />
                 </Router>
                 <div className="Logo">
                     <img

@@ -1,39 +1,89 @@
 import React from "react";
+import axios from "axios";
 
 export default class BioEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             bio: this.props.bio,
-            ///setBio: this.setBio,
-            // setBio=this.setBio,
-
+            showTextArea: false,
             error: false,
         };
         console.log("props in Bio", this.props);
         console.log("state in Bio", this.state);
     }
 
-    AddButton() {
-        return <button onClick={this.handleAddBi}>Add bio</button>;
+    handleChange(e) {
+        this.setState(
+            {
+                bio: e.target.value,
+            },
+            () => console.log("this.state: ", this.state)
+        );
+        // }
+    }
+
+    showBioBlock(e) {
+        e.preventDefault();
+        this.setState({ showTextArea: true });
+    }
+
+    updateBio(e) {
+        e.preventDefault();
+        const newBio = {
+            bio: this.state.bio,
+        };
+        axios
+            .post("/editbio", newBio)
+            .then(({ data }) => {
+                if (data.error) {
+                    this.setState({ data });
+                } else {
+                    this.setState(
+                        {
+                            ...data,
+                            showTextArea: false,
+                        },
+                        () => this.props.setBio(this.state.bio)
+                    );
+                }
+            })
+            .catch((err) => {
+                this.setState({ error: true });
+                console.log("err: ", error);
+            });
     }
 
     // - [ ] show current bio
     // - [ ] onClick (button) edit bio
     // - [ ] call function to pass and save new bio
     // - [ ] conditionally show buttons
-    //   (Add- if there is no bio, Edit- if there is bio, Save- to save edited bio)
+    //   (1Add- if there is no bio, 2Edit- if there is bio, 3Save- to save edited bio)
 
     render() {
         return (
             <div className="bio-block">
-                <h3>
-                    {!this.props.bio ? (
-                        <AddButton onClick={this.handleAddBio} />
-                    ) : (
-                        <EditButton onClick={this.handleEditBio} />
-                    )}
-                </h3>
+                {/* {bio} */}
+                {this.state.bio ? (
+                    <button onClick={(e) => this.showBioBlock(e)}>
+                        EDIT!!!!
+                    </button>
+                ) : (
+                    <button onClick={(e) => this.showBioBlock(e)}>
+                        ADD!!!
+                    </button>
+                )}
+
+                {this.state.showTextArea && (
+                    <>
+                        <textarea
+                            className="bio-textarea"
+                            onChange={(e) => this.handleChange(e)}
+                            defa
+                        ></textarea>
+                        <button onClick={(e) => this.updateBio(e)}>SAVE</button>
+                    </>
+                )}
             </div>
         );
     }

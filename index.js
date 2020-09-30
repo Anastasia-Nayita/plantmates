@@ -239,6 +239,22 @@ app.post("/uploader", uploader.single("file"), s3.upload, async function (
     }
 });
 
+app.post("/editbio", (req, res) => {
+    const { bio } = req.body;
+
+    db.updateBio(bio, req.session.userId)
+        .then((result) => {
+            console.log("result in updateBio", result);
+            res.json({
+                success: true,
+                err: false,
+            });
+        })
+        .catch((err) => {
+            console.log("err in db.editbio: ", err);
+        });
+});
+
 app.post("/logout", (req, res) => {
     req.session = null;
     res.json({ err: false });

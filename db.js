@@ -68,3 +68,13 @@ module.exports.addProfilePic = (image_url, id) => {
         [image_url, id]
     );
 };
+
+module.exports.updateBio = (bio, id) => {
+    return db.query(
+        `UPDATE users
+        SET bio = ($1)
+        WHERE id = ($2)
+        RETURNING *`,
+        [bio, id]
+    );
+};
