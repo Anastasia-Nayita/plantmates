@@ -5,10 +5,10 @@ import Uploader from "./Uploader.js";
 import Profilepic from "./Profilepic.js";
 import BioEditor from "./BioEditor.js";
 import OtherProfile from "./OtherProfile";
-import Registration from "./Registration";
-import Login from "./Login";
-import ResetPassword from "./ResetPassword";
-import Logout from "./Logout";
+// import Registration from "./Registration";
+// import Login from "./Login";
+// import ResetPassword from "./ResetPassword";
+// import Logout from "./Logout";
 import Navbar from "./Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -19,6 +19,7 @@ export default class App extends React.Component {
             error: false,
             uploaderIsVisible: false,
         };
+        this.setBio = this.setBio.bind(this);
     }
 
     componentDidMount() {
@@ -34,6 +35,11 @@ export default class App extends React.Component {
         console.log("this.state : ", this.state);
     }
 
+    setBio(newBio) {
+        this.setState({
+            bio: newBio,
+        });
+    }
     clickHandler() {
         this.setState({
             uploaderIsVisible: true,
@@ -45,17 +51,17 @@ export default class App extends React.Component {
             <div>
                 <Router>
                     <Navbar />
-                    <Switch>
-                        <Route path="/login" component={Login} />
+                    {/* <Switch> */}
+                    {/* <Route path="/login" component={Login} /> */}
 
-                        <Route path="/register" component={Registration} />
-                        <Route path="/user" component={Profile} />
-                        <Route
+                    {/* <Route path="/register" component={Registration} /> */}
+                    {/* <Route path="/" component={Profile} /> */}
+                    {/* <Route
                             path="/password/reset"
                             component={ResetPassword}
                         />
-                        <Route path="/logout" component={Logout} />
-                        {/* <Route
+                        <Route path="/logout" component={Logout} /> */}
+                    {/* {/* <Route
                             path="/user/:id"
                             render={(props) => (
                                 <OtherProfile
@@ -63,9 +69,9 @@ export default class App extends React.Component {
                                     match={props.match}
                                     history={props.history}
                                 />
-                            )}
-                        /> */}
-                    </Switch>
+                            )} */}
+                    {/* /> */}
+                    {/* </Switch> */}
                     <Route
                         exact
                         path="/"
@@ -95,7 +101,7 @@ export default class App extends React.Component {
                             />
                         )}
                     />
-                    <Route path="/user/:id" component={OtherProfile} />
+                    {/* <Route path="/user/:id" component={OtherProfile} /> */}
                 </Router>
                 <div className="Logo">
                     <img
@@ -110,8 +116,9 @@ export default class App extends React.Component {
                 {this.state.uploaderIsVisible && (
                     <Uploader
                         addImage={(newImage) => {
+                            console.log("newImage: ", newImage);
                             this.setState({
-                                image: newImage,
+                                image_url: newImage,
                                 uploaderIsVisible: false,
                             });
                         }}

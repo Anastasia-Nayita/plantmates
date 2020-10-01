@@ -261,7 +261,12 @@ app.post("/logout", (req, res) => {
 });
 
 app.get("*", function (req, res) {
-    res.sendFile(__dirname + "/index.html");
+    // res.sendFile(__dirname + "/index.html");
+    if (!req.session.userId) {
+        res.redirect("/welcome");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
 });
 
 app.listen(8080, function () {

@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import axios from "./axios";
 
 export default class BioEditor extends React.Component {
     constructor(props) {
@@ -9,8 +9,8 @@ export default class BioEditor extends React.Component {
             showTextArea: false,
             error: false,
         };
-        console.log("props in Bio", this.props);
-        console.log("state in Bio", this.state);
+        // console.log("props in Bio", this.props);
+        // console.log("state in Bio", this.state);
     }
 
     handleChange(e) {
@@ -61,9 +61,11 @@ export default class BioEditor extends React.Component {
     //   (1Add- if there is no bio, 2Edit- if there is bio, 3Save- to save edited bio)
 
     render() {
+        console.log("props in Bio", this.props);
         return (
             <div className="bio-block">
-                {/* {bio} */}
+                <p>{!this.state.showTextArea && this.props.bio}</p>
+
                 {this.state.bio ? (
                     <button onClick={(e) => this.showBioBlock(e)}>
                         EDIT!!!!
@@ -79,8 +81,9 @@ export default class BioEditor extends React.Component {
                         <textarea
                             className="bio-textarea"
                             onChange={(e) => this.handleChange(e)}
-                            defa
+                            defaultValue={this.props.bio}
                         ></textarea>
+
                         <button onClick={(e) => this.updateBio(e)}>SAVE</button>
                     </>
                 )}
