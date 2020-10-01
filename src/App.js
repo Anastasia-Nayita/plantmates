@@ -32,7 +32,6 @@ export default class App extends React.Component {
                 bio: data.bio || defaultBio,
             });
         });
-        console.log("this.state : ", this.state);
     }
 
     setBio(newBio) {
@@ -101,7 +100,7 @@ export default class App extends React.Component {
                             />
                         )}
                     />
-                    {/* <Route path="/user/:id" component={OtherProfile} /> */}
+                    <Route path="/user/:id" component={OtherProfile} />
                 </Router>
                 <div className="Logo">
                     <img
