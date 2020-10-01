@@ -61,7 +61,7 @@ export default class BioEditor extends React.Component {
     //   (1Add- if there is no bio, 2Edit- if there is bio, 3Save- to save edited bio)
 
     render() {
-        console.log("props in Bio", this.props);
+        // console.log("props in Bio", this.props);
         return (
             <div className="bio-block">
                 <p>{!this.state.showTextArea && this.props.bio}</p>

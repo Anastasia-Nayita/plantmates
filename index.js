@@ -212,7 +212,7 @@ app.get("/user", async function (req, res) {
     //console.log("req.session in app.get.user : ", req.session);
     try {
         const { rows } = await db.getUserDataById(req.session.userId);
-        console.log("rows[0]", rows[0]);
+        console.log("rows[0] in /user/", rows[0]);
         res.json(rows[0]);
     } catch (err) {
         console.log("err in getUserDataById: ", err);
@@ -253,6 +253,19 @@ app.post("/editbio", (req, res) => {
         .catch((err) => {
             console.log("err in db.editbio: ", err);
         });
+});
+
+app.get("/api/user/:id", async function (req, res) {
+    // let id = this.props.match.params.id;
+    console.log("req.params.id: ", req.params.id);
+    try {
+        const { rows } = await db.getUserDataById(req.params.id);
+
+        console.log("result in user/id", rows[0]);
+        res.json(rows[0]);
+    } catch (err) {
+        console.log("err in user/id: ", err);
+    }
 });
 
 app.post("/logout", (req, res) => {

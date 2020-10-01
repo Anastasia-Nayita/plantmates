@@ -16,13 +16,19 @@ export default class OtherProfile extends React.Component {
     }
 
     componentDidMount() {
-        axios.get("/user/:id").then(({ data }) => {
-            this.setState({
-                ...data,
-                // id: this.props.match.params.id,
+        console.log("this.state /user/:id 1 : ", this.state);
+        axios
+            .get("/api/user/:id")
+            .then(({ data }) => {
+                console.log("this.state /user/:id 2 : ", this.state);
+                this.setState({
+                    ...data,
+                    id: this.props.match.params.id,
+                });
+            })
+            .catch((err) => {
+                console.log("err in axios componentMount: ", err);
             });
-        });
-        console.log("this.state /user/:id  : ", this.state);
     }
 
     render() {
