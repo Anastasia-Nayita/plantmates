@@ -256,13 +256,10 @@ app.post("/editbio", (req, res) => {
 });
 
 app.get("/api/user/:id", async function (req, res) {
-    // let id = this.props.match.params.id;
-    console.log("req.params.id: ", req.params.id);
     try {
         const { rows } = await db.getUserDataById(req.params.id);
-
-        console.log("result in user/id", rows[0]);
-        res.json(rows[0]);
+        res.json({ ...rows[0], loggedId: req.session.userId });
+        //console.log("rows in user/id", rows[0]);
     } catch (err) {
         console.log("err in user/id: ", err);
     }
