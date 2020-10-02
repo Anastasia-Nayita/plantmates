@@ -61,19 +61,14 @@ export default class BioEditor extends React.Component {
     //   (1Add- if there is no bio, 2Edit- if there is bio, 3Save- to save edited bio)
 
     render() {
-        // console.log("props in Bio", this.props);
         return (
             <div className="bio-block">
                 <p>{!this.state.showTextArea && this.props.bio}</p>
 
-                {this.state.bio ? (
-                    <button onClick={(e) => this.showBioBlock(e)}>
-                        EDIT!!!!
-                    </button>
+                {this.props.bio ? (
+                    <button onClick={(e) => this.showBioBlock(e)}>edit</button>
                 ) : (
-                    <button onClick={(e) => this.showBioBlock(e)}>
-                        ADD!!!
-                    </button>
+                    <button onClick={(e) => this.showBioBlock(e)}>add</button>
                 )}
 
                 {this.state.showTextArea && (
@@ -84,7 +79,7 @@ export default class BioEditor extends React.Component {
                             defaultValue={this.props.bio}
                         ></textarea>
 
-                        <button onClick={(e) => this.updateBio(e)}>SAVE</button>
+                        <button onClick={(e) => this.updateBio(e)}>save</button>
                     </>
                 )}
             </div>

@@ -224,13 +224,13 @@ app.post("/uploader", uploader.single("file"), s3.upload, async function (
     res
 ) {
     var imageUrl;
-
     if (req.body.imageLink) {
         imageUrl = req.body.imageLink;
     } else {
         const filename = req.file.filename;
         imageUrl = `${s3Url}${filename}`;
     }
+
     try {
         const { rows } = await db.addProfilePic(imageUrl, req.session.userId);
         res.json(rows[0]);

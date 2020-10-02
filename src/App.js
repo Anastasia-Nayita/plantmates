@@ -5,7 +5,7 @@ import Uploader from "./Uploader.js";
 import Profilepic from "./Profilepic.js";
 import BioEditor from "./BioEditor.js";
 import OtherProfile from "./OtherProfile";
-// import Registration from "./Registration";
+import FindPeople from "./FindPeople";
 // import Login from "./Login";
 // import ResetPassword from "./ResetPassword";
 // import Logout from "./Logout";
@@ -100,6 +100,7 @@ export default class App extends React.Component {
                             />
                         )}
                     />
+                    <Route exact path="/users" render={() => <FindPeople />} />
                     <Route
                         path="/user/:id"
                         render={(props) => (

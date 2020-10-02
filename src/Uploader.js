@@ -14,16 +14,25 @@ export default class Uploader extends React.Component {
             file: e.target.files[0],
         });
     }
-
+    handleChange(e) {
+        const { name, value } = e.target;
+        this.setState(
+            {
+                [name]: value,
+            },
+            () => console.log("this.state: ", this.state)
+        );
+    }
     handleClick(e) {
         e.preventDefault();
         var formData = new FormData();
         if (!this.state.imageLink) {
             formData.append("file", this.state.file);
         } else {
-            formData.append("file", this.state.file);
             formData.append("imageLink", this.state.imageLink);
         }
+        console.log("this.state in uploader.js: ", this.state);
+        console.log("formData: ", formData);
         axios
             .post("/uploader", formData)
             .then((response) => {
@@ -51,9 +60,10 @@ export default class Uploader extends React.Component {
                     />
                     <label>Or upload image by url</label>
                     <input
+                        onChange={(e) => this.handleChange(e)}
                         className="imageLink"
                         type="text"
-                        name="link"
+                        name="imageLink"
                         placeholder="https://example.com/picture.png"
                         pattern="https://.*"
                     />
