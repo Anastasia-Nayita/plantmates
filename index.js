@@ -212,7 +212,7 @@ app.get("/user", async function (req, res) {
     //console.log("req.session in app.get.user : ", req.session);
     try {
         const { rows } = await db.getUserDataById(req.session.userId);
-        console.log("rows[0] in /user/", rows[0]);
+        //console.log("rows[0] in /user/", rows[0]);
         res.json(rows[0]);
     } catch (err) {
         console.log("err in getUserDataById: ", err);
@@ -244,7 +244,7 @@ app.post("/editbio", (req, res) => {
 
     db.updateBio(bio, req.session.userId)
         .then((result) => {
-            console.log("result in updateBio", result);
+            //console.log("result in updateBio", result);
             res.json({
                 success: true,
                 err: false,
@@ -268,6 +268,29 @@ app.get("/api/user/:id", async function (req, res) {
 app.post("/logout", (req, res) => {
     req.session = null;
     res.json({ err: false });
+});
+
+app.get("/users", async function (req, res) {
+    try {
+        const { rows } = await db.getFreshUsers(req.session.userId);
+        console.log("rows in users search fresh", rows);
+        res.json(rows);
+    } catch (err) {
+        console.log("err in users: ", err);
+    }
+});
+
+app.get("/users/:userInput", async function (req, res) {
+    try {
+        const { rows } = await db.getFindPeople(
+            req.session.userId,
+            req.params.userInput
+        );
+        console.log("rows in users search findpeople", rows);
+        res.json(rows);
+    } catch (err) {
+        console.log("err in users: ", err);
+    }
 });
 
 app.get("*", function (req, res) {

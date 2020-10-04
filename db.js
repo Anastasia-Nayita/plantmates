@@ -78,3 +78,24 @@ module.exports.updateBio = (bio, id) => {
         [bio, id]
     );
 };
+
+module.exports.getFreshUsers = (thisUserId) => {
+    return db.query(
+        `SELECT * FROM users 
+        WHERE id <> ($1)
+        ORDER BY id DESC LIMIT 3`,
+        [thisUserId]
+    );
+};
+
+module.exports.getFindPeople = (thisUserId, inputVal) => {
+    return db.query(
+        `SELECT * FROM users 
+        WHERE first ILIKE ($2)
+        OR last ILIKE ($2)
+        AND id <> ($1)
+        LIMIT 10
+        `,
+        [thisUserId, inputVal + "%"]
+    );
+};

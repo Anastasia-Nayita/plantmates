@@ -24,12 +24,12 @@ export default class App extends React.Component {
 
     componentDidMount() {
         axios.get("/user").then(({ data }) => {
-            var defaultBio = "no added bio yet...";
+            // var defaultBio = "no added bio yet...";
             this.setState({
                 ...data,
                 ///////Maybe issue is here in naming
                 image_url: data.image_url || "./default.png", ///"/https://picsum.photos/150"
-                bio: data.bio || defaultBio,
+                bio: data.bio,
             });
         });
     }
@@ -49,7 +49,7 @@ export default class App extends React.Component {
         return (
             <div>
                 <Router>
-                    <Navbar />
+                    {/* <Navbar /> */}
                     {/* <Switch> */}
                     {/* <Route path="/login" component={Login} /> */}
 

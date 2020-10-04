@@ -5,7 +5,7 @@ export default class BioEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            bio: this.props.bio,
+            // bio: this.props.bio,
             showTextArea: false,
             error: false,
         };
