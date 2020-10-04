@@ -292,6 +292,42 @@ app.get("/get-users/:userInput", async function (req, res) {
         console.log("err in users: ", err);
     }
 });
+/////// checks what is before
+app.get("/initial-friendship-status/:otherUserId", async function (req, res) {
+    try {
+        const { rows } = await db.getFreshUsers(req.session.userId);
+        res.json(rows);
+    } catch (err) {
+        console.log("err in users: ", err);
+    }
+});
+////// after click Friendbtn - adds rows in table
+app.post("/send-friend-request/:otherUserId", async function (req, res) {
+    try {
+        const { rows } = await db.getFreshUsers(req.session.userId);
+        res.json(rows);
+    } catch (err) {
+        console.log("err in users: ", err);
+    }
+});
+////// accept friend button - update table
+app.post("/accept-friend-request/:otherUserId", async function (req, res) {
+    try {
+        const { rows } = await db.getFreshUsers(req.session.userId);
+        res.json(rows);
+    } catch (err) {
+        console.log("err in users: ", err);
+    }
+});
+////// cancel friend reques or end friendship - delete two rows in table
+app.post("/end-friendship/:otherUserId", async function (req, res) {
+    try {
+        const { rows } = await db.getFreshUsers(req.session.userId);
+        res.json(rows);
+    } catch (err) {
+        console.log("err in users: ", err);
+    }
+});
 
 app.get("*", function (req, res) {
     // res.sendFile(__dirname + "/index.html");

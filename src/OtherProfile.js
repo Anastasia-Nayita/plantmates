@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "./axios.js";
+import Friendbtn from "./Friendbtn";
 
 export default class OtherProfile extends React.Component {
     constructor(props) {
@@ -35,6 +36,7 @@ export default class OtherProfile extends React.Component {
                         src={image_url}
                         alt={`{first} {last}`}
                     />
+                    <Friendbtn />
                 </div>
                 <p>
                     {first} {last}

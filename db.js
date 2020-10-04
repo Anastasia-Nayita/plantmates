@@ -99,3 +99,18 @@ module.exports.getFindPeople = (thisUserId, inputVal) => {
         [thisUserId, inputVal + "%"]
     );
 };
+
+module.exports.getFriendStatus = () => {
+    return db.query(
+        `SELECT * FROM friendships
+        WHERE (recipient_id = $1 AND sender_id = $2)
+        OR (recipient_id = $2 AND sender_id = $1);`
+    );
+};
+
+module.exports.acceptFriend = ("true") => {
+    return db.query(
+        `INSERT INTO friendships (accepted)
+       VALUES ($1)`
+    );
+
