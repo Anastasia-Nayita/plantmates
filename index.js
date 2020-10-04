@@ -270,7 +270,7 @@ app.post("/logout", (req, res) => {
     res.json({ err: false });
 });
 
-app.get("/users", async function (req, res) {
+app.get("/get-users", async function (req, res) {
     try {
         const { rows } = await db.getFreshUsers(req.session.userId);
         console.log("rows in users search fresh", rows);
@@ -280,7 +280,7 @@ app.get("/users", async function (req, res) {
     }
 });
 
-app.get("/users/:userInput", async function (req, res) {
+app.get("/get-users/:userInput", async function (req, res) {
     try {
         const { rows } = await db.getFindPeople(
             req.session.userId,

@@ -113,6 +113,8 @@ input {
     flex-flow: column;
     align-items: center;
     border: crimson solid;
-    margin-top: 15%;
+    margin-top: 25%;
     margin-left: 40%;
+    margin-right: 10%;
+    padding: 10%;
 }
