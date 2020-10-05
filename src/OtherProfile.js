@@ -36,7 +36,7 @@ export default class OtherProfile extends React.Component {
                         src={image_url}
                         alt={`{first} {last}`}
                     />
-                    <Friendbtn />
+                    <Friendbtn id={this.props.match.params.id} />
                 </div>
                 <p>
                     {first} {last}

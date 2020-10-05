@@ -10,7 +10,12 @@ import FindPeople from "./FindPeople";
 // import ResetPassword from "./ResetPassword";
 // import Logout from "./Logout";
 import Navbar from "./Navbar";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+////////////////////////
+import * as io from "socket.io-client";
+
+io.connect();
 
 export default class App extends React.Component {
     constructor(props) {
@@ -49,28 +54,22 @@ export default class App extends React.Component {
         return (
             <div>
                 <Router>
-                    {/* <Navbar /> */}
-                    {/* <Switch> */}
-                    {/* <Route path="/login" component={Login} /> */}
+                    <Navbar
+                        profilepic={
+                            <Profilepic
+                                id={this.state.id}
+                                first={this.state.first}
+                                last={this.state.last}
+                                imageUrl={this.state.image_url}
+                                clickHandler={() =>
+                                    this.setState({
+                                        uploaderIsVisible: true,
+                                    })
+                                }
+                            />
+                        }
+                    />
 
-                    {/* <Route path="/register" component={Registration} /> */}
-                    {/* <Route path="/" component={Profile} /> */}
-                    {/* <Route
-                            path="/password/reset"
-                            component={ResetPassword}
-                        />
-                        <Route path="/logout" component={Logout} /> */}
-                    {/* {/* <Route
-                            path="/user/:id"
-                            render={(props) => (
-                                <OtherProfile
-                                    key={props.match.url}
-                                    match={props.match}
-                                    history={props.history}
-                                />
-                            )} */}
-                    {/* /> */}
-                    {/* </Switch> */}
                     <Route
                         exact
                         path="/"

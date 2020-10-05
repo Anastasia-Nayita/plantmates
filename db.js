@@ -100,17 +100,37 @@ module.exports.getFindPeople = (thisUserId, inputVal) => {
     );
 };
 
-module.exports.getFriendStatus = () => {
+module.exports.getFriendStatus = (sender_id, recipient_id) => {
     return db.query(
         `SELECT * FROM friendships
         WHERE (recipient_id = $1 AND sender_id = $2)
-        OR (recipient_id = $2 AND sender_id = $1);`
+        OR (recipient_id = $2 AND sender_id = $1);`,
+        [sender_id, recipient_id]
     );
 };
 
-module.exports.acceptFriend = ("true") => {
+module.exports.sendFriendReq = (sender_id, recipient_id) => {
     return db.query(
-        `INSERT INTO friendships (accepted)
-       VALUES ($1)`
+        `INSERT INTO friendships(sender_id, recipient_id)
+        VALUES ($1, $2)`,
+        [sender_id, recipient_id]
     );
+};
 
+module.exports.acceptFriend = (sender_id, recipient_id) => {
+    return db.query(
+        `UPDATE friendships
+        WHERE (sender_id = ($1) AND recipient_id=($2))
+        SET accepted = (TRUE)
+       `,
+        [sender_id, recipient_id]
+    );
+};
+
+module.exports.deleteFriend = (sender_id, recipient_id) => {
+    return db.query(
+        `DELETE FROM friendships
+        WHERE (sender_id = ($1) AND recipient_id=($2))`,
+        [sender_id, recipient_id]
+    );
+};

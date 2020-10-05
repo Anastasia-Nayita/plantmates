@@ -12,6 +12,9 @@ const path = require("path");
 const s3 = require("./s3");
 const { s3Url } = require("./config");
 const uidSafe = require("uid-safe");
+/////////////////////////////////////
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" }); /// if deploy on heroku add instead myheroukuapp.blabla - name of the port
 
 app.use(compression());
 app.use(express.static("./public"));
@@ -78,7 +81,7 @@ app.get("/welcome", (req, res) => {
 
 app.post("/register", (req, res) => {
     const { first, last, email, password } = req.body;
-    console.log(req.body);
+    //console.log(req.body);
     if (first != "" && last != "" && email != "" && password != "") {
         bc.hash(password)
             .then((hashedPassword) => {
@@ -142,7 +145,7 @@ app.post("/password/reset/start", (req, res) => {
     const { email } = req.body;
     if (email != "") {
         db.getUserData(email).then((valid) => {
-            console.log("valid: ", valid);
+            // console.log("valid: ", valid);
             const validEmail = valid.rows[0].email;
             if (valid) {
                 console.log("worked!! there is such email");
@@ -152,7 +155,7 @@ app.post("/password/reset/start", (req, res) => {
                 });
                 db.addCode(validEmail, secretCode)
                     .then((result) => {
-                        console.log("result in db.addCode: ", result);
+                        // console.log("result in db.addCode: ", result);
                         sendEmail(
                             validEmail,
                             `Here is your reset code: ${secretCode} . It will expire! Take it and run!`,
@@ -190,7 +193,7 @@ app.post("/password/reset/verify", (req, res) => {
                                 res.json({
                                     err: false,
                                 });
-                                console.log("we did it till db.resetPsq!!!");
+                                // console.log("we did it till db.resetPsq!!!");
                             })
                             .catch((err) => {
                                 console.log("err in db.resetPsw: ", err);
@@ -273,7 +276,7 @@ app.post("/logout", (req, res) => {
 app.get("/get-users", async function (req, res) {
     try {
         const { rows } = await db.getFreshUsers(req.session.userId);
-        console.log("rows in users search fresh", rows);
+        //console.log("rows in users search fresh", rows);
         res.json(rows);
     } catch (err) {
         console.log("err in users: ", err);
@@ -286,17 +289,21 @@ app.get("/get-users/:userInput", async function (req, res) {
             req.session.userId,
             req.params.userInput
         );
-        console.log("rows in users search findpeople", rows);
+        //console.log("rows in users search findpeople", rows);
         res.json(rows);
     } catch (err) {
         console.log("err in users: ", err);
     }
 });
-/////// checks what is before
+/////// checks what is status before
 app.get("/initial-friendship-status/:otherUserId", async function (req, res) {
     try {
-        const { rows } = await db.getFreshUsers(req.session.userId);
+        const { rows } = await db.getFriendStatus(
+            req.session.userId,
+            req.params.otherUserId
+        );
         res.json(rows);
+        console.log("check the status when page mounts: ", rows);
     } catch (err) {
         console.log("err in users: ", err);
     }
@@ -304,8 +311,12 @@ app.get("/initial-friendship-status/:otherUserId", async function (req, res) {
 ////// after click Friendbtn - adds rows in table
 app.post("/send-friend-request/:otherUserId", async function (req, res) {
     try {
-        const { rows } = await db.getFreshUsers(req.session.userId);
+        const { rows } = await db.sendFriendReq(
+            req.session.userId,
+            req.params.otherUserId
+        );
         res.json(rows);
+        console.log("after click make friend req: ", rows);
     } catch (err) {
         console.log("err in users: ", err);
     }
@@ -313,7 +324,10 @@ app.post("/send-friend-request/:otherUserId", async function (req, res) {
 ////// accept friend button - update table
 app.post("/accept-friend-request/:otherUserId", async function (req, res) {
     try {
-        const { rows } = await db.getFreshUsers(req.session.userId);
+        const { rows } = await db.acceptFriend(
+            req.session.userId,
+            req.params.otherUserId
+        );
         res.json(rows);
     } catch (err) {
         console.log("err in users: ", err);
@@ -322,7 +336,10 @@ app.post("/accept-friend-request/:otherUserId", async function (req, res) {
 ////// cancel friend reques or end friendship - delete two rows in table
 app.post("/end-friendship/:otherUserId", async function (req, res) {
     try {
-        const { rows } = await db.getFreshUsers(req.session.userId);
+        const { rows } = await db.deleteFriend(
+            req.session.userId,
+            req.params.otherUserId
+        );
         res.json(rows);
     } catch (err) {
         console.log("err in users: ", err);
@@ -338,6 +355,13 @@ app.get("*", function (req, res) {
     }
 });
 
-app.listen(8080, function () {
-    console.log("I'm listening.");
+server.listen(8080, function () {
+    console.log("I'm listening...Tell me something new 👸");
+});
+
+io.on("connection", (socket) => {
+    console.log("socket with id connected: ", socket.id);
+    socket.on("disconnect", () => {
+        console.log("socket with id disconnected: ", socket.id);
+    });
 });

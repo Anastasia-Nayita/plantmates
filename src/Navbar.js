@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Profilepic from "./Profilepic.js";
 
-function Navbar() {
+export default function Navbar() {
+    //profilepic/
     const [click, setClick] = useState(false);
 
     const handleClick = () => setClick(!click);
-    const closeMobileMenu = () => setClick(false);
 
     return (
         <div>
@@ -19,64 +20,36 @@ function Navbar() {
                     </div>
                     <ul className={click ? "nav-menu active" : "nav-menu"}>
                         <li className="nav-item">
-                            <Link
-                                to="/"
-                                className="nav-links"
-                                onClick={closeMobileMenu}
-                            >
+                            <Link to="/" className="nav-links">
                                 Home
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link
-                                to="/login"
-                                className="nav-links"
-                                onClick={closeMobileMenu}
-                            >
+                            <Link to="/login" className="nav-links">
                                 Log in
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link
-                                to="/register"
-                                className="nav-links"
-                                onClick={closeMobileMenu}
-                            >
+                            <Link to="/register" className="nav-links">
                                 Register
                             </Link>
                         </li>
+
                         <li className="nav-item">
-                            <Link
-                                to="/user"
-                                className="nav-links"
-                                onClick={closeMobileMenu}
-                            >
-                                Profile
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link
-                                to="/password/reset"
-                                className="nav-links"
-                                onClick={closeMobileMenu}
-                            >
+                            <Link to="/password/reset" className="nav-links">
                                 Reset password
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link
-                                to="/logout"
-                                className="nav-links"
-                                onClick={closeMobileMenu}
-                            >
+                            <Link to="/logout" className="nav-links">
                                 Log out
                             </Link>
                         </li>
                     </ul>
+                    {/* {profilepic}    Not working !      */}
+                    <Profilepic />
                 </div>
             </nav>
         </div>
     );
 }
-
-export default Navbar;

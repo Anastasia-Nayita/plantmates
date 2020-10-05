@@ -104,6 +104,7 @@ input {
     top: 30%;
     position: absolute;
     min-width: 35vh;
+    object-fit: cover;
     overflow: auto;
     min-height: 35vh;
 }
