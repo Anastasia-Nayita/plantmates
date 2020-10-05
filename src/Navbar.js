@@ -45,6 +45,16 @@ export default function Navbar() {
                                 Log out
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to="/users" className="nav-links">
+                                Find people
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/friends" className="nav-links">
+                                Friends
+                            </Link>
+                        </li>
                     </ul>
                     {/* {profilepic}    Not working !      */}
                     <Profilepic />

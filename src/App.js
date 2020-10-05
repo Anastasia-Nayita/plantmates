@@ -6,6 +6,7 @@ import Profilepic from "./Profilepic.js";
 import BioEditor from "./BioEditor.js";
 import OtherProfile from "./OtherProfile";
 import FindPeople from "./FindPeople";
+import Friends from "./Friends";
 // import Login from "./Login";
 // import ResetPassword from "./ResetPassword";
 // import Logout from "./Logout";
@@ -100,6 +101,7 @@ export default class App extends React.Component {
                         )}
                     />
                     <Route exact path="/users" render={() => <FindPeople />} />
+                    <Route exact path="/friends" render={() => <Friends />} />
                     <Route
                         path="/user/:id"
                         render={(props) => (

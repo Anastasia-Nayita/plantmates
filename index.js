@@ -346,6 +346,16 @@ app.post("/end-friendship/:otherUserId", async function (req, res) {
     }
 });
 
+app.get(`/friends.json`, async function (req, res) {
+    try {
+        const { rows } = await db.getFriendList(req.session.userId);
+        res.json(rows);
+        console.log("rows in FriendsList: ", rows);
+    } catch (err) {
+        console.log("err in users: ", err);
+    }
+});
+
 app.get("*", function (req, res) {
     // res.sendFile(__dirname + "/index.html");
     if (!req.session.userId) {
