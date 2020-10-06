@@ -7,7 +7,7 @@ import {
     unfriend,
 } from "./actions";
 
-export default function FriendsList() {
+export default function friendsList() {
     const dispatch = useDispatch();
     const friends = useSelector(
         (state) => state.users && state.users.filter((user) => user.accepted)
@@ -24,14 +24,61 @@ export default function FriendsList() {
         return null;
     }
     return (
-    <div>List of friends</div>
+        <div>
+            <div className="friends-sec">
+                <h2>Friends</h2>
+                {friends &&
+                    friends.map(function (friend) {
+                        return (
+                            <div className="friends-block" key={friend.id}>
+                                <img
+                                    className="profilepic"
+                                    src={friend.image_url}
+                                    alt={`{first} {last}`}
+                                />
+                                <p>
+                                    {friend.first} {friend.last}
+                                </p>
 
-        render two lists:
-            -map the filtered lists into elements that
-                -shows first, last and photo
-                -links photo and maybe name to profile
-                -has the appropriate button based on whether 
-                user is a friend or a wannabe. 
-                These buttons will need click handlers that dispatch actions
-        );
+                                <button
+                                    onClick={() =>
+                                        dispatch(unfriend(friend.id))
+                                    }
+                                >
+                                    Unfriend
+                                </button>
+                            </div>
+                        );
+                    })}
+            </div>
+
+            <div className="wannabes-sec">
+                <h2>Friend requests</h2>
+                {wannabes &&
+                    wannabes.map(function (wannabe) {
+                        return (
+                            <div className="wannabes-block" key={wannabe.id}>
+                                <img
+                                    className="profilepic"
+                                    src={wannabe.image_url}
+                                    alt={`{first} {last}`}
+                                />{" "}
+                                <p>
+                                    {wannabe.first} {wannabe.last}
+                                </p>
+                                <button
+                                    onClick={() =>
+                                        dispatch(
+                                            acceptFriendRequest(wannabe.id)
+                                        )
+                                    }
+                                >
+                                    Accept friend request
+                                </button>
+                            </div>
+                        );
+                    })}
+            </div>
+        </div>
+    );
 }

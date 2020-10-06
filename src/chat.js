@@ -1,0 +1,56 @@
+import React, { useEffect, useRef } from "react";
+import { socket } from "./socket";
+import { useSelector } from "react-redux";
+
+export default function Chat() {
+    const elemRef = useRef();
+    const chatMsgs = useSelector((state) => state && state.chatMsgs);
+    //console.log("here are my last 10 messages: ", chatMsgs);
+
+    useEffect(() => {
+        console.log("chat hook component mounted");
+        console.log("elementRef if: ", elemRef);
+        //console.log("scrollTop: ", scrollTop);
+
+        elemRef.current.scrollTop =
+            elemRef.current.scrollHeight - elemRef.current.clientHeight;
+    }, []);
+
+    /////////we need to re-run useEffect when we add new message
+
+    const keyCheck = (e) => {
+        // console.log("value of textarea", e.target.value);
+        // console.log("key pressed", e.key);
+
+        if (e.key === "Enter") {
+            e.preventDefault();
+            console.log("our message: ", e.target.value);
+            socket.emit("my chat message", e.target.value);
+            e.target.value = "";
+        }
+    };
+
+    return (
+        <div>
+            <p>Welcome to chat</p>
+            <div className="chat-block" ref={elemRef}>
+                <p>chat messages are here</p>
+                <p>chat messages are here</p>
+                <p>chat messages are here</p>
+                <p>chat messages are here</p>
+                <p>chat messages are here</p>
+
+                <p>chat messages are here</p>
+                <p>chat messages are here</p>
+                <p>chat messages are here</p>
+                <p>chat messages are here</p>
+                <p>chat messages are here</p>
+
+                <textarea
+                    placeholder="add your message here"
+                    onKeyDown={keyCheck}
+                ></textarea>
+            </div>
+        </div>
+    );
+}

@@ -7,6 +7,7 @@ import BioEditor from "./BioEditor.js";
 import OtherProfile from "./OtherProfile";
 import FindPeople from "./FindPeople";
 import Friends from "./Friends";
+import Chat from "./Chat";
 // import Login from "./Login";
 // import ResetPassword from "./ResetPassword";
 // import Logout from "./Logout";
@@ -30,10 +31,8 @@ export default class App extends React.Component {
 
     componentDidMount() {
         axios.get("/user").then(({ data }) => {
-            // var defaultBio = "no added bio yet...";
             this.setState({
                 ...data,
-                ///////Maybe issue is here in naming
                 image_url: data.image_url || "./default.png", ///"/https://picsum.photos/150"
                 bio: data.bio,
             });
@@ -102,6 +101,8 @@ export default class App extends React.Component {
                     />
                     <Route exact path="/users" render={() => <FindPeople />} />
                     <Route exact path="/friends" render={() => <Friends />} />
+                    <Route exact path="/chat" render={() => <Chat />} />
+                    {/* <Route           */}
                     <Route
                         path="/user/:id"
                         render={(props) => (

@@ -38,12 +38,22 @@ const uploader = multer({
     },
 });
 
-app.use(
-    cookieSession({
-        secret: `I'm always angry.`,
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-    })
-);
+// app.use(
+//     cookieSession({
+//         secret: `I'm always angry.`,
+//         maxAge: 1000 * 60 * 60 * 24 * 14,
+//     })
+// );
+
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90,
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(
     express.urlencoded({
@@ -295,6 +305,7 @@ app.get("/get-users/:userInput", async function (req, res) {
         console.log("err in users: ", err);
     }
 });
+
 /////// checks what is status before
 app.get("/initial-friendship-status/:otherUserId", async function (req, res) {
     try {
@@ -308,6 +319,7 @@ app.get("/initial-friendship-status/:otherUserId", async function (req, res) {
         console.log("err in users: ", err);
     }
 });
+
 ////// after click Friendbtn - adds rows in table
 app.post("/send-friend-request/:otherUserId", async function (req, res) {
     try {
@@ -321,6 +333,7 @@ app.post("/send-friend-request/:otherUserId", async function (req, res) {
         console.log("err in users: ", err);
     }
 });
+
 ////// accept friend button - update table
 app.post("/accept-friend-request/:otherUserId", async function (req, res) {
     try {
@@ -333,6 +346,7 @@ app.post("/accept-friend-request/:otherUserId", async function (req, res) {
         console.log("err in users: ", err);
     }
 });
+
 ////// cancel friend reques or end friendship - delete two rows in table
 app.post("/end-friendship/:otherUserId", async function (req, res) {
     try {
@@ -370,8 +384,28 @@ server.listen(8080, function () {
 });
 
 io.on("connection", (socket) => {
-    console.log("socket with id connected: ", socket.id);
+    console.log(`socket with ${socket.id} connected`);
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
     socket.on("disconnect", () => {
         console.log("socket with id disconnected: ", socket.id);
     });
+
+    // db.getLastTenMsgs().then(({ rows }) => {
+    //     console.log("messages: ", rows);
+    //     io.sockets.emit("chatMessages", rows);
+    // });
+
+    socket.on("my chat message", (newMsg) => {
+        console.log("this message is coming from chat.js component: ", newMsg);
+
+        console.log("user who send message: ", socket.request.session.userId);
+        io.sockets.emit("addChatMsg", newMsg);
+    });
+
+    /// db query needs to be JOIN users and chats table
+    //// the newest message should come at the bottom ( order in query)
+
+    ///io.sockets.emit('addChatMsg', obj{newMsg, first, picture} )
 });

@@ -119,3 +119,27 @@ input {
     margin-right: 10%;
     padding: 10%;
 }
+
+.chat-block {
+    text-align: center;
+    height: 300px;
+    width: 80%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+/* .wannabes-sec,
+.friends-sec {
+    /* display: flex;} */
+
+.friends-block,
+.wannabes-block {
+    /* position: absolute; */
+    top: 35vh;
+}
+
+.friends-block img.profilepic,
+.wannabes-block img.profilepic {
+    border: solid;
+    position: relative;
+}

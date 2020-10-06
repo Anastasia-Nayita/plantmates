@@ -137,12 +137,12 @@ module.exports.deleteFriend = (sender_id, recipient_id) => {
 
 module.exports.getFriendList = (recipient_id) => {
     return db.query(
-        `SELECT users.id, first, last, image, accepted
+        `SELECT users.id, first, last, image_url, accepted
         FROM friendships
         JOIN users
-        ON (accepted = false AND recipient_id = $1 AND requester_id = users.id)
-        OR (accepted = true AND recipient_id = $1 AND requester_id = users.id)
-        OR (accepted = true AND requester_id = $1 AND recipient_id = users.id)`,
+        ON (accepted = false AND recipient_id = $1 AND sender_id  = users.id)
+        OR (accepted = true AND recipient_id = $1 AND sender_id  = users.id)
+        OR (accepted = true AND sender_id  = $1 AND recipient_id = users.id)`,
         [recipient_id]
     );
 };
