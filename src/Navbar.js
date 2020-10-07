@@ -25,9 +25,7 @@ export default function Navbar({ profilepic }) {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/logout" className="nav-links">
-                                Log out
-                            </Link>
+                            <a href="/logout">Logout</a>
                         </li>
                         <li className="nav-item">
                             <Link to="/users" className="nav-links">

@@ -23,16 +23,16 @@ export default class Registration extends React.Component {
 
     handleClick(e) {
         e.preventDefault();
-        var that = this;
+        // var that = this;
         axios
-            .post("/register", that.state)
+            .post("/register", this.state)
             .then(function (response) {
                 console.log("response: ", response);
                 if (response) {
-                    this.setState({
-                        error: false,
-                    });
-                    //location.replace("/");
+                    // this.setState({
+                    //     error: false,
+                    // });
+                    location.replace("/");
                 } else {
                     this.setState(
                         {

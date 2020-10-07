@@ -8,13 +8,13 @@ export default function Chat() {
     console.log("here are my last 10 messages: ", chatMsgs);
 
     useEffect(() => {
-        console.log("chat hook component mounted");
-        console.log("elementRef if: ", elemRef);
+        //console.log("chat hook component mounted");
+        //console.log("elementRef if: ", elemRef);
         //console.log("scrollTop: ", scrollTop);
 
         elemRef.current.scrollTop =
             elemRef.current.scrollHeight - elemRef.current.clientHeight;
-    }, []);
+    }, [chatMsgs]);
 
     /////////we need to re-run useEffect when we add new message
 
@@ -24,7 +24,7 @@ export default function Chat() {
 
         if (e.key === "Enter") {
             e.preventDefault();
-            console.log("our message: ", e.target.value);
+            //console.log("our message: ", e.target.value);
             socket.emit("my chat message", e.target.value);
             e.target.value = "";
         }
@@ -35,12 +35,9 @@ export default function Chat() {
             <p>Welcome to chat</p>
             <div className="chat-block" ref={elemRef}>
                 {chatMsgs &&
-                    chatMsgs.map(function (message) {
+                    chatMsgs.map(function (message, i) {
                         return (
-                            <div
-                                className="chat-block-messages"
-                                key={message.id}
-                            >
+                            <div className="chat-block-messages" key={i}>
                                 <img
                                     className="chat-img"
                                     src={message.image_url}

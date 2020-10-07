@@ -152,7 +152,7 @@ module.exports.getLastTenMsgs = () => {
         `SELECT * FROM chat
         JOIN users
         ON (chat.sender_id = users.id)
-        ORDER BY chat.sender_id DESC 
+        ORDER BY chat.id DESC 
         LIMIT (10)`
         // `SELECT * FROM chat
         // ORDER BY id DESC
@@ -168,5 +168,13 @@ module.exports.addChatMsg = (sender_id, message) => {
        VALUES ($1, $2)
        RETURNING *`,
         [sender_id, message]
+    );
+};
+
+module.exports.getUserChatDataById = (id) => {
+    return db.query(
+        `SELECT first, last, image_url FROM users 
+        WHERE id = ($1)`,
+        [id]
     );
 };

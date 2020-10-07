@@ -57,7 +57,6 @@ io.use(function (socket, next) {
 
 app.use(
     express.urlencoded({
-        //// do we need it???
         extended: false,
     })
 );
@@ -278,9 +277,10 @@ app.get("/api/user/:id", async function (req, res) {
     }
 });
 
-app.post("/logout", (req, res) => {
+app.get("/logout", (req, res) => {
     req.session = null;
-    res.json({ err: false });
+    res.redirect("/welcome");
+    //res.json({ err: false });
 });
 
 app.get("/get-users", async function (req, res) {
@@ -397,7 +397,7 @@ io.on("connection", (socket) => {
     });
 
     db.getLastTenMsgs().then(({ rows }) => {
-        console.log("messages server: ", rows);
+        //console.log("messages server: ", rows);
         io.sockets.emit("chatMessages", rows.reverse());
     });
 
@@ -407,11 +407,18 @@ io.on("connection", (socket) => {
             socket.request.session.userId,
             newMsg
         );
-        console.log("rows add new message", rows);
-        // console.log("user who send message: ", socket.request.session.userId);
-        io.sockets.emit("addChatMsg", rows[0]);
-    });
+        const { rows: userChatData } = await db.getUserChatDataById(
+            socket.request.session.userId
+        );
 
+        const newMsgData = { ...rows[0], ...userChatData[0] };
+        console.log("newMsgData: ", newMsgData);
+        //console.log("userChat.rows.image_url ", userChatData.rows[0].image_url);
+
+        // console.log("rows[0]", rows[0]);
+        //  console.log("user who send message: ", socket.request.session.userId);
+        io.sockets.emit("addChatMsg", newMsgData);
+    });
     //chatMessages, chatMessage;
     /// db query needs to be JOIN users and chats table
     //// the newest message should come at the bottom ( order in query)

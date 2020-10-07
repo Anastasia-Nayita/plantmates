@@ -46,13 +46,13 @@ export default function (state = {}, action) {
         };
     } else if (action.type === "RECEIVE_NEW_MSG") {
         console.log("state: ", state);
-        console.log("action msg", action.newMsg[0]);
-
+        console.log("action msg[0]", action.newMsg[0]);
+        console.log("action msg", action.newMsg);
         state = {
             ...state,
             //state: action.newMsg,
 
-            msgs: [...state.msgs, action.newMsg[0]], ///// after JOIN change in to spread
+            msgs: [...state.msgs, action.newMsg], ///// after JOIN change in to spread
         };
     }
 
