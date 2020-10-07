@@ -25,22 +25,6 @@ export default function Navbar() {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/login" className="nav-links">
-                                Log in
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/register" className="nav-links">
-                                Register
-                            </Link>
-                        </li>
-
-                        <li className="nav-item">
-                            <Link to="/password/reset" className="nav-links">
-                                Reset password
-                            </Link>
-                        </li>
-                        <li className="nav-item">
                             <Link to="/logout" className="nav-links">
                                 Log out
                             </Link>
@@ -53,6 +37,11 @@ export default function Navbar() {
                         <li className="nav-item">
                             <Link to="/friends" className="nav-links">
                                 Friends
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/chat" className="nav-links">
+                                Chat
                             </Link>
                         </li>
                     </ul>

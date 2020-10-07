@@ -385,6 +385,10 @@ server.listen(8080, function () {
 
 io.on("connection", (socket) => {
     console.log(`socket with ${socket.id} connected`);
+    console.log(
+        "socket.request.session.userId: ",
+        socket.request.session.userId
+    );
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
@@ -392,18 +396,23 @@ io.on("connection", (socket) => {
         console.log("socket with id disconnected: ", socket.id);
     });
 
-    // db.getLastTenMsgs().then(({ rows }) => {
-    //     console.log("messages: ", rows);
-    //     io.sockets.emit("chatMessages", rows);
-    // });
-
-    socket.on("my chat message", (newMsg) => {
-        console.log("this message is coming from chat.js component: ", newMsg);
-
-        console.log("user who send message: ", socket.request.session.userId);
-        io.sockets.emit("addChatMsg", newMsg);
+    db.getLastTenMsgs().then(({ rows }) => {
+        console.log("messages server: ", rows);
+        io.sockets.emit("chatMessages", rows.reverse());
     });
 
+    socket.on("my chat message", async (newMsg) => {
+        ///console.log("typeOf newMsg: ", typeof newMsg);
+        const { rows } = await db.addChatMsg(
+            socket.request.session.userId,
+            newMsg
+        );
+        console.log("rows add new message", rows);
+        // console.log("user who send message: ", socket.request.session.userId);
+        io.sockets.emit("addChatMsg", rows[0]);
+    });
+
+    //chatMessages, chatMessage;
     /// db query needs to be JOIN users and chats table
     //// the newest message should come at the bottom ( order in query)
 

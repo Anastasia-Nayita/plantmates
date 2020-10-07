@@ -7,7 +7,7 @@ import BioEditor from "./BioEditor.js";
 import OtherProfile from "./OtherProfile";
 import FindPeople from "./FindPeople";
 import Friends from "./Friends";
-import Chat from "./Chat";
+import Chat from "./chat";
 // import Login from "./Login";
 // import ResetPassword from "./ResetPassword";
 // import Logout from "./Logout";

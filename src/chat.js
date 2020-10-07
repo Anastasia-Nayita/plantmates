@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 
 export default function Chat() {
     const elemRef = useRef();
-    const chatMsgs = useSelector((state) => state && state.chatMsgs);
-    //console.log("here are my last 10 messages: ", chatMsgs);
+    const chatMsgs = useSelector((state) => state && state.msgs);
+    console.log("here are my last 10 messages: ", chatMsgs);
 
     useEffect(() => {
         console.log("chat hook component mounted");
@@ -34,18 +34,17 @@ export default function Chat() {
         <div>
             <p>Welcome to chat</p>
             <div className="chat-block" ref={elemRef}>
-                <p>chat messages are here</p>
-                <p>chat messages are here</p>
-                <p>chat messages are here</p>
-                <p>chat messages are here</p>
-                <p>chat messages are here</p>
-
-                <p>chat messages are here</p>
-                <p>chat messages are here</p>
-                <p>chat messages are here</p>
-                <p>chat messages are here</p>
-                <p>chat messages are here</p>
-
+                {chatMsgs &&
+                    chatMsgs.map(function (message) {
+                        return (
+                            <div
+                                className="chat-block-messages"
+                                key={message.id}
+                            >
+                                {message.message}
+                            </div>
+                        );
+                    })}
                 <textarea
                     placeholder="add your message here"
                     onKeyDown={keyCheck}

@@ -121,6 +121,8 @@ input {
 }
 
 .chat-block {
+    position: absolute;
+    top: 40%;
     text-align: center;
     height: 300px;
     width: 80%;

@@ -146,3 +146,22 @@ module.exports.getFriendList = (recipient_id) => {
         [recipient_id]
     );
 };
+
+module.exports.getLastTenMsgs = () => {
+    return db.query(
+        `SELECT * FROM chat
+        ORDER BY id DESC 
+        LIMIT (10)`
+    );
+};
+
+module.exports.addChatMsg = (sender_id, message) => {
+    console.log("staff from db: ", sender_id, message);
+    return db.query(
+        `INSERT INTO chat
+        (sender_id, message)
+       VALUES ($1, $2)
+       RETURNING *`,
+        [sender_id, message]
+    );
+};

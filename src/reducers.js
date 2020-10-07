@@ -28,7 +28,7 @@ export default function (state = {}, action) {
                 // console.log("action.id", action.id);
                 // console.log('user.id: ',user.id);
                 if (action.id == user.id) {
-                    console.log("made it to the IF unfriend");
+                    //console.log("made it to the IF unfriend");
                     return {
                         ...user,
                         unfriend: true,
@@ -38,9 +38,25 @@ export default function (state = {}, action) {
                 }
             }),
         };
+    } else if (action.type === "RECEIVE_LAST_10") {
+        //console.log("NEW MSG: ", action.msgs);
+        state = {
+            ...state,
+            msgs: action.msgs,
+        };
+    } else if (action.type === "RECEIVE_NEW_MSG") {
+        console.log("state: ", state);
+        console.log("action msg", action.newMsg[0]);
+
+        state = {
+            ...state,
+            //state: action.newMsg,
+
+            msgs: [...state.msgs, action.newMsg[0]], ///// after JOIN change in to spread
+        };
     }
 
-    console.log("state: ", state);
+    console.log("Reducer state: ", state);
 
     return state;
 }
