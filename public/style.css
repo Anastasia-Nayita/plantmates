@@ -129,7 +129,20 @@ input {
     overflow-y: scroll;
     scroll-behavior: smooth;
 }
-
+.chat-block p {
+    color: tomato;
+    padding: 4%;
+}
+.chat-img {
+    position: absolute;
+    max-width: 12%;
+    max-height: 12vh;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    left: 5%;
+    border-radius: 50%;
+}
 /* .wannabes-sec,
 .friends-sec {
     /* display: flex;} */

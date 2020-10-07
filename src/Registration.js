@@ -32,7 +32,7 @@ export default class Registration extends React.Component {
                     this.setState({
                         error: false,
                     });
-                    //location.replace("/nextpage");
+                    //location.replace("/");
                 } else {
                     this.setState(
                         {

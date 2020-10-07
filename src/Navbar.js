@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Profilepic from "./Profilepic.js";
+//import Profilepic from "./Profilepic.js";
 
-export default function Navbar() {
+export default function Navbar({ profilepic }) {
     //profilepic/
     const [click, setClick] = useState(false);
 
@@ -45,8 +45,8 @@ export default function Navbar() {
                             </Link>
                         </li>
                     </ul>
-                    {/* {profilepic}    Not working !      */}
-                    <Profilepic />
+                    {profilepic}
+                    {/* //Not working !<Profilepic /> */}
                 </div>
             </nav>
         </div>

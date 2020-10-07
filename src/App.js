@@ -57,9 +57,9 @@ export default class App extends React.Component {
                     <Navbar
                         profilepic={
                             <Profilepic
-                                id={this.state.id}
-                                first={this.state.first}
-                                last={this.state.last}
+                                // id={this.state.id}
+                                // first={this.state.first}
+                                // last={this.state.last}
                                 imageUrl={this.state.image_url}
                                 clickHandler={() =>
                                     this.setState({

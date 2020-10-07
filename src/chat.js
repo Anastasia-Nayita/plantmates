@@ -41,7 +41,13 @@ export default function Chat() {
                                 className="chat-block-messages"
                                 key={message.id}
                             >
-                                {message.message}
+                                <img
+                                    className="chat-img"
+                                    src={message.image_url}
+                                />{" "}
+                                <p>
+                                    {message.first} says: {message.message}
+                                </p>
                             </div>
                         );
                     })}

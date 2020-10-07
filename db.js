@@ -150,8 +150,13 @@ module.exports.getFriendList = (recipient_id) => {
 module.exports.getLastTenMsgs = () => {
     return db.query(
         `SELECT * FROM chat
-        ORDER BY id DESC 
+        JOIN users
+        ON (chat.sender_id = users.id)
+        ORDER BY chat.sender_id DESC 
         LIMIT (10)`
+        // `SELECT * FROM chat
+        // ORDER BY id DESC
+        // LIMIT (10)`
     );
 };
 
