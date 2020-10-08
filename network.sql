@@ -2,6 +2,8 @@
  DROP TABLE IF EXISTS reset_psw CASCADE;
  DROP TABLE IF EXISTS friendships CASCADE;
 DROP TABLE IF EXISTS chat;
+DROP TABLE IF EXISTS wall;
+
 
  CREATE TABLE users (
      id SERIAL PRIMARY KEY,
@@ -32,5 +34,13 @@ CREATE TABLE chat(
       id SERIAL PRIMARY KEY,
       sender_id INT REFERENCES users(id) NOT NULL,
       message TEXT,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
+
+CREATE TABLE wall(
+      id SERIAL PRIMARY KEY,
+      sender_id INT REFERENCES users(id) NOT NULL,
+      message TEXT,
+      wall_owner_id INT REFERENCES users(id) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );

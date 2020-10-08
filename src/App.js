@@ -8,9 +8,7 @@ import OtherProfile from "./OtherProfile";
 import FindPeople from "./FindPeople";
 import Friends from "./Friends";
 import Chat from "./chat";
-// import Login from "./Login";
-// import ResetPassword from "./ResetPassword";
-// import Logout from "./Logout";
+import Wall from "./Wall";
 import Navbar from "./Navbar";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -33,7 +31,7 @@ export default class App extends React.Component {
         axios.get("/user").then(({ data }) => {
             this.setState({
                 ...data,
-                image_url: data.image_url || "./default.png", ///"/https://picsum.photos/150"
+                image_url: data.image_url || "./default.png",
                 bio: data.bio,
             });
         });
@@ -57,9 +55,6 @@ export default class App extends React.Component {
                     <Navbar
                         profilepic={
                             <Profilepic
-                                // id={this.state.id}
-                                // first={this.state.first}
-                                // last={this.state.last}
                                 imageUrl={this.state.image_url}
                                 clickHandler={() =>
                                     this.setState({
@@ -96,13 +91,13 @@ export default class App extends React.Component {
                                         setBio={this.setBio}
                                     />
                                 }
+                                wall={<Wall />}
                             />
                         )}
                     />
                     <Route exact path="/users" render={() => <FindPeople />} />
                     <Route exact path="/friends" render={() => <Friends />} />
                     <Route exact path="/chat" render={() => <Chat />} />
-                    {/* <Route           */}
                     <Route
                         path="/user/:id"
                         render={(props) => (

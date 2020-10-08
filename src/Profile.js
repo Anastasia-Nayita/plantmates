@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ({ first, last, profilepic, bioEditor }) {
+export default function ({ first, last, profilepic, bioEditor, wall }) {
     return (
         <div>
             {profilepic}
@@ -10,9 +10,9 @@ export default function ({ first, last, profilepic, bioEditor }) {
                 <h3>
                     {first} {last}
                 </h3>
-
                 {bioEditor}
             </div>
+            <div className="wall-block">{wall}</div>
         </div>
     );
 }

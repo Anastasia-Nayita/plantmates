@@ -31,7 +31,7 @@ export default function Search() {
     }
     if (people) {
         return (
-            <div>
+            <div className="find-block">
                 <>
                     <h1>find people</h1>
                     <input

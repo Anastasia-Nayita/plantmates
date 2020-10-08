@@ -178,3 +178,24 @@ module.exports.getUserChatDataById = (id) => {
         [id]
     );
 };
+
+module.exports.getLastTenPosts = () => {
+    return db.query(
+        `SELECT * FROM wall
+        JOIN users
+        ON (wall.sender_id = users.id)
+        ORDER BY wall.id DESC 
+        LIMIT (10)`
+    );
+};
+
+module.exports.addPost = (sender_id, message, wall_owner_id) => {
+    console.log("staff from db: ", sender_id, message, wall_owner_id);
+    return db.query(
+        `INSERT INTO wall
+        (sender_id, message, wall_owner_id)
+       VALUES ($1, $2, $3)
+       RETURNING *`,
+        [sender_id, message, wall_owner_id]
+    );
+};

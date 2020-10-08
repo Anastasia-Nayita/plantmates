@@ -3,14 +3,7 @@
     box-sizing: border-box;
     /* background-color: aquamarine; */
 }
-body {
-    /* background: blanchedalmond; */
-    /* background-image: url("/javardh-2q6C5zDJOsg-unsplash.jpg"); */
-    background-size: cover;
-    background-position: left;
-    /* color: whitesmoke; */
-    margin: 3%;
-}
+
 input {
     display: flex;
     /* margin: 8% 6%; */
@@ -44,11 +37,16 @@ input {
     left: 1%;
     top: 1%;
 }
+.burger-menu {
+    top: 4%;
+}
 .burger-menu::before {
     content: "≡";
 }
+
 .close-menu::before {
     content: "×";
+    background-color: white;
 }
 .profile {
     position: absolute;
@@ -57,10 +55,28 @@ input {
 }
 .nav-menu {
     display: grid;
-    grid-template-columns: repeat(7, auto);
+    grid-template-columns: repeat(6, auto);
     grid-gap: 12vh;
     list-style: none;
+    /* position: absolute; */
 }
+
+.ReactModal__Overlay {
+    opacity: 0;
+    transform: translateY(-3vh);
+    transition: all 500ms ease;
+}
+
+.ReactModal__Overlay--after-open {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
+    transform: translateY(-6vh);
+}
+
 .navbar-container {
     display: flex;
     height: 80px;
@@ -69,6 +85,7 @@ input {
     display: flex;
     height: 80px;
     justify-content: center;
+    margin-top: 3%;
 }
 .nav-links {
     text-decoration: none;
@@ -157,4 +174,14 @@ input {
 .wannabes-block img.profilepic {
     border: solid;
     position: relative;
+}
+
+.find-block {
+    position: absolute;
+    top: 40%;
+}
+.wall-block {
+    position: absolute;
+    top: 70%;
+    left: 30%;
 }
