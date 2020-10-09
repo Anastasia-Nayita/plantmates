@@ -1,9 +1,11 @@
 * {
+    font-family: "Quicksand", sans-serif;
     margin: 0;
     box-sizing: border-box;
-    /* background-color: aquamarine; */
 }
-
+body {
+    background: url("./plant.jpg");
+}
 input {
     display: flex;
     /* margin: 8% 6%; */
@@ -12,12 +14,13 @@ input {
 .block {
     border: thin tomato solid;
     width: max-content;
-    padding: 4%;
+    padding: 10% 4%;
+    float: right;
 }
 .Logo {
     left: 45%;
     position: absolute;
-    top: 9%;
+    top: 13%;
     width: 20vh;
     display: flex;
     flex-direction: column;
@@ -31,23 +34,18 @@ input {
     text-align: right;
 }
 .burger-menu,
-.close-menu {
+#close-menu {
     font-size: 2em;
     position: absolute;
     left: 1%;
-    top: 1%;
+    top: 3%;
 }
-.burger-menu {
-    top: 4%;
-}
-.burger-menu::before {
-    content: "≡";
-}
-
-.close-menu::before {
-    content: "×";
-    background-color: white;
-}
+/* .profile-bg {
+    min-width: 100%;
+    min-height: 100%;
+    background-size: cover;
+    background: url("./plant1.jpg");
+} */
 .profile {
     position: absolute;
     right: 1%;
@@ -56,8 +54,9 @@ input {
 .nav-menu {
     display: grid;
     grid-template-columns: repeat(6, auto);
-    grid-gap: 12vh;
+    grid-gap: 7rem;
     list-style: none;
+    margin: 3% 0;
     /* position: absolute; */
 }
 
@@ -74,7 +73,7 @@ input {
 
 .ReactModal__Overlay--before-close {
     opacity: 0;
-    transform: translateY(-6vh);
+    transform: translateY(-3vh);
 }
 
 .navbar-container {
@@ -82,14 +81,22 @@ input {
     height: 80px;
 }
 .navbar {
+    position: absolute;
+    top: 0;
+    background-color: #ebebeb;
+    width: 100%;
     display: flex;
     height: 80px;
     justify-content: center;
-    margin-top: 3%;
+    margin-top: 0%;
 }
 .nav-links {
+    padding: 0 40%;
     text-decoration: none;
     color: tomato;
+}
+h3 {
+    text-decoration: none;
 }
 .nav-links:hover {
     border-bottom: 4px solid darkblue;
@@ -98,7 +105,7 @@ input {
 }
 .profilepic {
     /* border: #bfbdbd 3px solid; */
-    /* border-radius: 50%; */
+    border-radius: 50%;
     right: 2px;
     top: 9%;
     position: absolute;
@@ -109,16 +116,26 @@ input {
 
 .profilepic img {
     width: 100%;
+    object-fit: cover;
 }
 .Uploader {
     padding: 3%;
+    /* position: absolute; */
     display: flex;
     justify-content: center;
     margin: 20% 0;
+    z-index: 3;
+}
+.Uploader span {
+    padding: 10%;
+    border: dotted white;
+}
+overlay-uploader {
 }
 .bigger .profilepic {
     left: 5%;
     top: 30%;
+    border-radius: 0;
     position: absolute;
     min-width: 35vh;
     object-fit: cover;
@@ -128,15 +145,20 @@ input {
 
 .profile-info {
     display: flex;
+    /* position: relative; */
     flex-flow: column;
     align-items: center;
     border: crimson solid;
-    margin-top: 25%;
-    margin-left: 40%;
-    margin-right: 10%;
-    padding: 10%;
+    padding: 6%;
+    max-width: 1120px;
+    width: 40%;
+    float: right;
+    margin: 16% auto;
 }
 
+.bio-block {
+    padding: 20%;
+}
 .chat-block {
     position: absolute;
     top: 40%;

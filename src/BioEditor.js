@@ -66,9 +66,13 @@ export default class BioEditor extends React.Component {
                 <p>{!this.state.showTextArea && this.props.bio}</p>
 
                 {this.props.bio ? (
-                    <button onClick={(e) => this.showBioBlock(e)}>edit</button>
+                    <button onClick={(e) => this.showBioBlock(e)}>
+                        edit bio
+                    </button>
                 ) : (
-                    <button onClick={(e) => this.showBioBlock(e)}>add</button>
+                    <button onClick={(e) => this.showBioBlock(e)}>
+                        add bio
+                    </button>
                 )}
 
                 {this.state.showTextArea && (

@@ -8,7 +8,7 @@ import ResetPassword from "./ResetPassword";
 export default function Welcome() {
     return (
         <div id="welcome">
-            <h1>Welcome!</h1>
+            <h1>Welcome mate!</h1>
             <App />
             <HashRouter>
                 <div>

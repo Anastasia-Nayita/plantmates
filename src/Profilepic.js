@@ -8,8 +8,8 @@ export default function ({ first, last, imageUrl, clickHandler }) {
                 alt={{ first } & { last }}
                 onClick={clickHandler}
             />
-            <br />
-            {first} {last}
+            {/* <br />
+            {first} {last} */}
         </div>
     );
 }

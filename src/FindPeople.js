@@ -47,13 +47,15 @@ export default function Search() {
                     {people.map((user) => {
                         return (
                             <div key={user.id} className="search-result-block">
-                                <img
-                                    className="profile-pic"
-                                    src={user.img_url}
-                                />
-                                <h3>
-                                    {user.first} {user.last}
-                                </h3>
+                                <Link to={`/user/${user.id}`}>
+                                    <img
+                                        className="profile-pic"
+                                        src={user.image_url}
+                                    />
+                                    <h3>
+                                        {user.first} {user.last}
+                                    </h3>
+                                </Link>
                             </div>
                         );
                     })}

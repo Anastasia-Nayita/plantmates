@@ -31,15 +31,16 @@ export default function friendsList() {
                     friends.map(function (friend) {
                         return (
                             <div className="friends-block" key={friend.id}>
-                                <img
-                                    className="profilepic"
-                                    src={friend.image_url}
-                                    alt={`{first} {last}`}
-                                />
-                                <p>
-                                    {friend.first} {friend.last}
-                                </p>
-
+                                <Link to={`/user/${friend.id}`}>
+                                    <img
+                                        className="profilepic"
+                                        src={friend.image_url}
+                                        alt={`{first} {last}`}
+                                    />
+                                    <p>
+                                        {friend.first} {friend.last}
+                                    </p>
+                                </Link>
                                 <button
                                     onClick={() =>
                                         dispatch(unfriend(friend.id))

@@ -110,13 +110,11 @@ export default class App extends React.Component {
                     />
                 </Router>
                 <div className="Logo">
-                    <img
-                        className="LogoImg"
-                        src="https://media.giphy.com/media/l0OWjOSGaUjQvzBGE/giphy.gif"
-                        alt="Logo"
-                    />
+                    <h1> PLANTMATES </h1>
 
-                    <h2> hey stranger </h2>
+                    <h2>.</h2>
+                    <h3>friends of plants</h3>
+                    <h3>plants of friends</h3>
                 </div>
 
                 {this.state.uploaderIsVisible && (
