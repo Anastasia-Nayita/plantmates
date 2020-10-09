@@ -49,6 +49,8 @@ export default function Chat() {
                     })}
                 <textarea
                     placeholder="add your message here"
+                    rows="2"
+                    cols="50"
                     onKeyDown={keyCheck}
                 ></textarea>
             </div>

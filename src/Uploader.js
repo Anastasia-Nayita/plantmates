@@ -55,7 +55,7 @@ export default class Uploader extends React.Component {
             <div className="Uploader">
                 <span>
                     {this.state.uploaderIsVisible && (
-                        <>
+                        <div className="Uploader-bg">
                             <div
                                 className="overlay-uploader"
                                 onClick={(e) => this.closeUploader(e)}
@@ -83,7 +83,7 @@ export default class Uploader extends React.Component {
                             <button onClick={(e) => this.handleClick(e)}>
                                 Upload file
                             </button>
-                        </>
+                        </div>
                     )}
                 </span>
             </div>

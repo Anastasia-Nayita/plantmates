@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
-import { socket } from "./socket";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+//import { socket } from "./socket";
+import { useDispatch, useSelector } from "react-redux";
+import { getPosts, addPost } from "./actions";
 import FeatherIcon from "feather-icons-react";
 
 export default function Wall() {
     // const [greetee, setGreetee] = useState("World");
-
-    const wallPosts = useSelector((state) => state && state.msgs);
+    const dispatch = useDispatch();
+    const wallPosts = useSelector((state) => state && state.posts);
     console.log("here are my last 5 wallPosts: ", wallPosts);
+    const newPost = useSelector((state) => state.newPost && state.newPosts);
 
     /////////we need to re-run useEffect when we add new message
 
@@ -15,7 +17,9 @@ export default function Wall() {
         if (e.key === "Enter") {
             e.preventDefault();
             console.log("our message: ", e.target.value);
-            socket.emit("my wallpost: ", e.target.value);
+            //socket.emit("my wallpost: ", e.target.value);
+            /////  !!!!!
+
             e.target.value = "";
         }
     };
@@ -42,7 +46,9 @@ export default function Wall() {
                         );
                     })} */}
                 <textarea
-                    placeholder="add your message here"
+                    placeholder="add your post here"
+                    rows="4"
+                    cols="60"
                     onKeyDown={keyCheck}
                 ></textarea>
             </div>

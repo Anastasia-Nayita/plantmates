@@ -11,7 +11,7 @@ export default function ({ first, last, profilepic, bioEditor, wall }) {
                 </h3>
                 {bioEditor}
             </div>
-            <div className="wall-block">{wall}</div>
+            {/* <div className="wall-block">{wall}</div> */}
         </div>
     );
 }
